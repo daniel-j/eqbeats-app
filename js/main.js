@@ -28,8 +28,7 @@ require([], function () {
 			var url = typeof e.target.dataset.url === "string" ? e.target.dataset.url : null;
 
 			if (url !== null && lastUrl !== url) {
-				url = url === "" ? "./" : "./#!/"+url;
-				history.pushState(null, null, url);
+				history.pushState(null, null, basePath+url);
 				handleUrl(url);
 			}
 
@@ -62,18 +61,15 @@ require([], function () {
 	}
 
 	function handleUrl(url) {
+		if (url.indexOf(basePath) === 0) {
+			url = url.substr(basePath.length);
+		}
 		
-		if (url.indexOf("./") === 0) {
-			url = url.substr(2);
-		}
-		if (url.indexOf("#!/") === 0) {
-			url = url.substr(3);
-		}
-		console.log(url, lastUrl);
 		if (lastUrl === url) {
 			return;
 		}
 		lastUrl = url;
+		console.log(url);
 		
 		var urlInfo = url.split("/");
 		var controller = urlInfo[0];
@@ -90,9 +86,10 @@ require([], function () {
 			sectionItem.classList.add("active");
 			currentSectionItem = sectionItem;
 		} else {
-			handleUrl("./");
-			document.location.hash = "";
 			alert("The page you requested does not exist");
+			var url = basePath;
+			history.replaceState(null, null, url);
+			handleUrl(url);
 		}
 		var leftListItem = leftMenu.querySelector("li span[data-url='"+url+"']");
 		if (leftListItem) {
@@ -111,10 +108,10 @@ require([], function () {
 	}
 
 	window.addEventListener("popstate", function (e) {
-		var url = document.location.hash || "";
+		var url = document.location.pathname || "";
 		handleUrl(url);
 	}, false);
 
-	handleUrl(document.location.hash);
+	handleUrl(document.location.pathname);
 
 });

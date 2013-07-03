@@ -25,10 +25,10 @@ body {
 a {
 	color: #408;
 	text-decoration: none;
-}
-a:hover {
-	color: #80C;
-	text-decoration: underline;
+	&:hover {
+		color: #80C;
+		text-decoration: underline;
+	}
 }
 
 h1 {
@@ -72,6 +72,14 @@ input.invisible {
 	clear: both;
 }
 
+.art-thumb {
+	width: 48px;
+	height: 48px;
+	background-color: rgba(0,0,0,0.03);
+	background-size: cover;
+	background-position: center center;
+}
+
 #wrapper {
 	position: absolute;
 	left: 0;
@@ -96,99 +104,105 @@ input.invisible {
 	background-color: #fefcf9;
 	color: #181211;
 	position: relative;
-}
-#contents > section {
-	position: absolute;
-	left: 0px;
-	right: 0px;
-	top: 0px;
-	bottom: 0px;
-	overflow: auto;
-	display: none;
-}
-#contents > section.active {
-	display: block;
-}
-#contents h3 {
-	font-size: 18px;
-	margin-bottom: 8px;
-}
-#contents h3 a:focus {
-	outline: none;
-	text-decoration: underline;
-	color: #80C;
-}
 
-.art-thumb {
-	width: 48px;
-	height: 48px;
-	background-color: rgba(0,0,0,0.03);
-	background-size: cover;
-	background-position: center center;
+	> section {
+		position: absolute;
+		left: 0px;
+		right: 0px;
+		top: 0px;
+		bottom: 0px;
+		overflow: auto;
+		display: none;
+
+		&.active {
+			display: block;
+		}
+
+		h3 {
+			font-size: 18px;
+			margin-bottom: 8px;
+
+			a:focus {
+				outline: none;
+				text-decoration: underline;
+				color: #80C;
+			}
+
+		}
+	}
+
 }
 
 .tracklist-big-wrap {
 	padding: 0px 20px;
 	overflow: hidden;
+
+	> div {
+		max-width: 480px;
+		width: 33.3333%;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		border-left: 20px solid transparent;
+
+		&:first-child {
+			border-left: none;
+		}
+	}
 }
-.tracklist-big-wrap > div {
-	max-width: 480px;
-	width: 33.3333%;
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	border-left: 20px solid transparent;
-}
-.tracklist-big-wrap > div:first-child {
-	border-left: none;
-}
+
 .tracklist-big {
 	list-style-type: none;
 	overflow: hidden;
 	border: 1px solid #d6d5d2;
 	margin-bottom: 10px;
+
+	li {
+		padding-right: 7px;
+		margin: 0;
+		display: block;
+		background-color: #fff;
+		height: 48px;
+		overflow: hidden;
+		font-size: 13px;
+
+		&:last-child {
+			border-bottom: none;
+		}
+		&:nth-child(2n) {
+			background-color: #f5f4f1;
+		}
+		&:focus {
+			background-color: rgba(160, 64, 255, 0.2);
+			outline: none;
+		}
+		&:active {
+			background-color: rgba(160, 64, 255, 0.7);
+			color: white;
+			a {
+				color: white;
+			}
+		}
+		
+		> div {
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		.art {
+			float: left;
+			margin-right: 7px;
+		}
+		.title {
+			font-size: 18px;
+			line-height: 28px;
+		}
+		.artist {
+			font-size: 15px;
+		}
+	}
 }
-.tracklist-big li {
-	padding-right: 7px;
-	margin: 0;
-	display: block;
-	background-color: #fff;
-	height: 48px;
-	overflow: hidden;
-	font-size: 13px;
-}
-.tracklist-big li:last-child {
-	border-bottom: none;
-}
-.tracklist-big li:nth-child(2n) {
-	background-color: #f5f4f1;
-}
-.tracklist-big li:focus {
-	background-color: rgba(160, 64, 255, 0.2);
-	outline: none;
-}
-.tracklist-big li:active {
-	background-color: rgba(160, 64, 255, 0.7);
-	color: white;
-}
-.tracklist-big li:active a {
-	color: white;
-}
-.tracklist-big .art {
-	float: left;
-	margin-right: 7px;
-}
-.tracklist-big li > div {
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-}
-.tracklist-big .title {
-	font-size: 18px;
-	line-height: 28px;
-}
-.tracklist-big .artist {
-	font-size: 15px;
-}
+
 
 #iframe-blog {
 	border: none;

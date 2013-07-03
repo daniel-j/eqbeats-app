@@ -1,3 +1,6 @@
+<?php
+	$basepath = dirname($_SERVER["SCRIPT_NAME"])."/";
+?>
 <!doctype html>
 <html>
 <head>
@@ -8,7 +11,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<link rel="stylesheet" href="style.css" type="text/css">
+	<link rel="stylesheet/less" href="<?php echo $basepath; ?>style.less" type="text/css">
+
+	<script src="<?php echo $basepath; ?>js/lib/less.min.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -167,6 +172,9 @@
 	</section>
 </div>
 
-<script data-main="js/main" src="js/lib/require.min.js"></script>
+<script>
+var basePath = "<?php echo $basepath; ?>";
+</script>
+<script data-main="<?php echo $basepath; ?>js/main" src="<?php echo $basepath; ?>js/lib/require.min.js"></script>
 </body>
 </html>
