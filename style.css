@@ -1,0 +1,608 @@
+
+@font-face {
+	font-family: "DejaVu Sans";
+	src: url("fonts/DejaVuSans-webfont.eot");
+	src: url("fonts/DejaVuSans-webfont.eot#iefix") format("embedded-opentype"),
+		 url("fonts/DejaVuSans-webfont.woff") format("woff"),
+		 url("fonts/DejaVuSans-webfont.ttf") format("truetype"),
+		 url("fonts/DejaVuSans-webfont.svg") format("svg");
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+body {
+	font-family: "Liberation Sans", Helvetica, sans-serif;
+	font-size: 16px;
+	background-color: #ecebe8;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+a {
+	color: #408;
+	text-decoration: none;
+}
+a:hover {
+	color: #80C;
+	text-decoration: underline;
+}
+
+h1 {
+	font-family: "DejaVu Sans";
+	font-size: 36px;
+	font-weight: 100;
+	color: #408;
+}
+
+input.invisible {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+}
+.none {
+	display: none;
+}
+
+.flex-columns {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: flex;
+	-webkit-flex-flow: rows;
+	-moz-flex-flow: rows;
+	flex-flow: rows;
+}
+.flex {
+	-webkit-flex: 1;
+	-moz-flex: 1;
+	flex: 1;
+}
+
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.clear {
+	clear: both;
+}
+
+#wrapper {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	min-width: 800px;
+	min-height: 380px;
+}
+
+.main-wrapper {
+	position: absolute;
+	bottom: 34px;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+
+#contents {
+	box-shadow: 0 0 1px #888;
+	background-color: #fefcf9;
+	color: #181211;
+	position: relative;
+}
+#contents > section {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	overflow: auto;
+	display: none;
+}
+#contents > section.active {
+	display: block;
+}
+#contents h3 {
+	font-size: 18px;
+	margin-bottom: 8px;
+}
+#contents h3 a:focus {
+	outline: none;
+	text-decoration: underline;
+	color: #80C;
+}
+
+.art-thumb {
+	width: 48px;
+	height: 48px;
+	background-color: rgba(0,0,0,0.03);
+	background-size: cover;
+	background-position: center center;
+}
+
+.tracklist-big-wrap {
+	padding: 0px 20px;
+	overflow: hidden;
+}
+.tracklist-big-wrap > div {
+	max-width: 480px;
+	width: 33.3333%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border-left: 20px solid transparent;
+}
+.tracklist-big-wrap > div:first-child {
+	border-left: none;
+}
+.tracklist-big {
+	list-style-type: none;
+	overflow: hidden;
+	border: 1px solid #d6d5d2;
+	margin-bottom: 10px;
+}
+.tracklist-big li {
+	padding-right: 7px;
+	margin: 0;
+	display: block;
+	background-color: #fff;
+	height: 48px;
+	overflow: hidden;
+	font-size: 13px;
+}
+.tracklist-big li:last-child {
+	border-bottom: none;
+}
+.tracklist-big li:nth-child(2n) {
+	background-color: #f5f4f1;
+}
+.tracklist-big li:focus {
+	background-color: rgba(160, 64, 255, 0.2);
+	outline: none;
+}
+.tracklist-big li:active {
+	background-color: rgba(160, 64, 255, 0.7);
+	color: white;
+}
+.tracklist-big li:active a {
+	color: white;
+}
+.tracklist-big .art {
+	float: left;
+	margin-right: 7px;
+}
+.tracklist-big li > div {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.tracklist-big .title {
+	font-size: 18px;
+	line-height: 28px;
+}
+.tracklist-big .artist {
+	font-size: 15px;
+}
+
+#iframe-blog {
+	border: none;
+	width: 100%;
+	height: 100%;
+	display: block;
+	-webkit-user-select: all;
+	-moz-user-select: all;
+	user-select: all;
+}
+
+.left-pane {
+	width: 20%;
+	max-width: 300px;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	-moz-flex-direction: column;
+	flex-direction: column;
+}
+.left-pane #left-menu {
+	-webkit-flex: 1;
+	-moz-flex: 1;
+	flex: 1;
+	background-color: #F2F2F2;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding-bottom: 10px;
+}
+#left-menu li {
+	list-style-type: none;
+}
+#left-menu #searchbar-wrap {
+	padding-bottom: 10px;
+}
+#left-menu #searchbar {
+	border: none;
+	display: block;
+	width: 100%;
+	padding: 5px;
+	height: 24px;
+	box-shadow: 0px 0px 3px #888;
+	font-size: 15px;
+	color: #444;
+	border-bottom: 1px solid transparent;
+	font-family: "Liberation Sans", Helvetica, sans-serif;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+#left-menu #searchbar:focus {
+	outline-color: rgba(160, 64, 255, 0.7);
+}
+#left-menu #searchbar:focus::-webkit-input-placeholder {
+	color: transparent;
+}
+#left-menu li span {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	display: block;
+	padding: 2px 0px;
+	padding-left: 20px;
+	font-size: 13px;
+	cursor: default;
+	color: #333;
+}
+#left-menu li.separator {
+	height: 10px;
+	padding: 0px;
+	margin: 0px;
+}
+#left-menu li span:focus {
+	outline: none;
+	background-color: rgba(160, 64, 255, 0.1);
+}
+#left-menu li.selected span {
+	background-color: rgba(160, 64, 255, 0.7);
+	box-shadow: 0px 1px 1px rgb(160, 64, 255);
+	color: white;
+	font-weight: bold;
+}
+
+
+
+.trackinfo {
+	background-color: #292929;
+	position: relative;
+	/*border-top: 1px solid #1d1d1d;
+	border-right: 1px solid #1d1d1d;
+	box-sizing: border-box;*/
+	-webkit-transition: height .35s ease;
+	-moz-transition: height .35s ease;
+	transition: height .35s ease;
+	overflow: hidden;
+	cursor: pointer;
+	display: block;
+	width: 100%;
+}
+.trackinfo > label {
+	display: block;
+}
+.trackinfo .coverart-wrap {
+	overflow: hidden;
+	background-color: black;
+	position: relative;
+}
+.trackinfo #coverart {
+	max-height: 280px;
+	max-width: 100%;
+	display: block;
+	margin: auto;
+	margin-bottom: -100%;
+	-webkit-transition: margin-bottom .35s ease;
+	-moz-transition: margin-bottom .35s ease;
+	transition: margin-bottom .35s ease;
+	cursor: pointer;
+	border-top: 1px solid #1d1d1d;
+}
+.trackinfo #coverart-thumb {
+	position: relative;
+	float: left;
+	margin-right: 5px;
+	margin-left: 0px;
+	background-repeat: no-repeat;
+	-webkit-transition: margin-left .35s ease;
+	-moz-transition: margin-left .35s ease;
+	transition: margin-left .35s ease;
+	cursor: pointer;
+}
+.trackinfo .trackinfo-wrapper {
+	white-space: nowrap;
+	overflow: hidden;
+}
+.trackinfo #track-title-wrapper {
+	margin-top: 6px;
+	margin-bottom: 2px;
+}
+.trackinfo .marquee {
+	
+}
+.trackinfo .marquee span {
+	text-overflow: ellipsis;
+	display: block;
+	overflow: hidden;
+	color: rgba(255, 255, 255, 0.8);
+	font-size: 12px;
+}
+.trackinfo .marquee span a {
+	color: inherit;
+	text-decoration: none;
+}
+.trackinfo .marquee span a:hover {
+	text-decoration: underline;
+}
+.trackinfo #track-title {
+	font-size: 13px;
+	font-weight: bold;
+}
+.trackinfo #track-artist {
+	font-size: 11px;
+}
+
+#toggle-trackinfo:checked + label #coverart-thumb {
+	margin-left: -50px;
+}
+#toggle-trackinfo:checked + label #coverart {
+	margin-bottom: 0%;
+}
+/*#toggle-trackinfo:focus + label #coverart, #toggle-trackinfo:focus ~ label #coverart-thumb {
+	opacity: 0.8;
+}*/
+
+
+.bottombar {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	height: 34px;
+	background-color: #292929;
+	border-top: 1px solid #1d1d1d;
+	border-bottom: 1px solid #2c2c2c;
+	color: #bbbbbb;
+	font-family: sans-serif;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+
+.playercontrols {
+	font-size: 0px;
+	padding-left: 5px;
+	z-index: 1;
+}
+.playercontrols button {
+	border: none;
+	position: relative;
+	width: 32px;
+	height: 32px;
+	display: inline-block;
+	margin-left: 3px;
+	/*cursor: pointer;*/
+	overflow: hidden;
+	background: none;
+	/*background-color: rgba(0, 255, 255, 0.5);*/
+}
+.playercontrols button[disabled] {
+	cursor: default;
+}
+.playercontrols button:active {
+	
+}
+.playercontrols button:focus {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+.playercontrols button:before, .playercontrols button:after, .playercontrols button div:before, .playercontrols button div:after {
+	position: absolute;
+	content: "";
+}
+.playercontrols #prev-track-btn:before, .playercontrols #prev-track-btn:after {
+	border: 0px solid transparent;
+	border-width:8px 13px;
+	border-right-color:white;
+	top: 8px;
+}
+.playercontrols #prev-track-btn:before {
+	left:-8px;
+}
+.playercontrols #prev-track-btn:after {
+	left: 4px;
+}
+.playercontrols #prev-track-btn div:before {
+	left:3px;
+	top: 8px;
+	width:3px;
+	height:16px;
+	background-color: white;
+}
+.playercontrols #prev-track-btn[disabled]:before, .playercontrols #prev-track-btn[disabled]:after {
+	border-right-color: #555;
+}
+.playercontrols #prev-track-btn[disabled] div:before {
+	background-color: #555;
+}
+.playercontrols #play-pause-track-btn:before {
+	left: 4px;
+	top: 2px;
+	border: 0px solid transparent;
+	border-width: 14px 25px;
+	border-left-color:#fff;
+}
+.playercontrols #play-pause-track-btn.paused:before {
+	left: 4px;
+	top: 3px;
+	width: 7px;
+	height: 26px;
+	border: 0px solid white;
+	border-width: 0 9px;
+}
+.playercontrols #play-pause-track-btn[disabled]:before {
+	border-left-color: #555;
+}
+.playercontrols #play-pause-track-btn[disabled].paused:before {
+	border-right-color: #555;
+}
+.playercontrols #next-track-btn:before, .playercontrols #next-track-btn:after {
+	border: 0px solid transparent;
+	border-width:8px 13px;
+	border-left-color:white;
+	top: 8px;
+}
+.playercontrols #next-track-btn:before {
+	left:2px;
+}
+.playercontrols #next-track-btn:after {
+	left:14px;
+}
+.playercontrols #next-track-btn div:before {
+	left:26px;
+	top: 8px;
+	width:3px;
+	height:16px;
+	background-color: white;
+}
+.playercontrols #next-track-btn[disabled]:before, .playercontrols #next-track-btn[disabled]:after {
+	border-left-color: #555;
+}
+.playercontrols #next-track-btn[disabled] div:before {
+	background-color: #555;
+}
+
+.playercontrols span {
+	font-size: 12px;
+}
+.playercontrols .playerTime {
+	display: inline-block;
+	width: 50px;
+	padding: 0px 2px;
+	height: 32px;
+	line-height: 32px;
+	position: absolute;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	/*background-color: rgba(255, 0, 0, 0.5);*/
+}
+.playercontrols #timeElapsed {
+	left: 113px;
+	text-align: right;
+}
+.playercontrols #timeTotal {
+	right: 0px;
+	text-align: left;
+}
+.playercontrols #progress-song {
+	position: absolute;
+	left: 167px;
+	right: 54px;
+	top: 0px;
+	/*background-color: rgba(255, 255, 0, 0.5);*/
+}
+.playercontrols #progress-song .progressbar-progress {
+	-webkit-animation: sample-track 60s infinite linear;
+	-moz-animation: sample-track 60s infinite linear;
+	animation: sample-track 60s infinite linear;
+}
+.playercontrols #progress-song .progressbar-loaded {
+	-webkit-animation: sample-track-loaded 60s infinite linear;
+	-moz-animation: sample-track-loaded 60s infinite linear;
+	animation: sample-track-loaded 60s infinite linear;
+}
+@-webkit-keyframes sample-track {
+	0% {width: 0%;}
+	100% {width: 100%;}
+}
+@-webkit-keyframes sample-track-loaded {
+	0% {width: 0%;}
+	40% {width: 100%;}
+	100% {width: 100%;}
+}
+@-moz-keyframes sample-track {
+	0% {width: 0%;}
+	100% {width: 100%;}
+}
+@-moz-keyframes sample-track-loaded {
+	0% {width: 0%;}
+	40% {width: 100%;}
+	100% {width: 100%;}
+}
+@keyframes sample-track {
+	0% {width: 0%;}
+	100% {width: 100%;}
+}
+@keyframes sample-track-loaded {
+	0% {width: 0%;}
+	40% {width: 100%;}
+	100% {width: 100%;}
+}
+
+/* djazz's super awesome progress bar */
+.progressbar {
+	position: relative;
+	padding-left: 12px;
+	padding-right: 12px;
+	height: 32px;
+}
+.progressbar .progressbar-track {
+	position: absolute;
+	left: 16px;
+	right: 16px;
+	height: 2px;
+	background-color: #393939;
+	top: 15px;
+}
+.progressbar .progressbar-loaded {
+	position: absolute;
+	width: 0;
+	background-color: #4b4b4b;
+}
+.progressbar .progressbar-loaded, .progressbar .progressbar-progress {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 2px;
+}
+.progressbar .progressbar-progress {
+	width: 0%;
+	/*background-color: rgb(141, 190, 15);
+	background-color: rgb(128, 0, 255);*/
+	background-color: rgb(160, 64, 255);
+	-webkit-transition: width .2s ease;
+	-moz-transition: width .2s ease;
+	transition: width .2s ease;
+}
+
+.progressbar .progressbar-progress .progressbar-scrubber {
+	position: absolute;
+	/*box-shadow: 0 0 0 9px rgba(141, 190, 15, 0.5);*/
+	border: 1px solid #a0c346;
+	background-color: #86b410;
+	top: -3px;
+	right: -3px;
+	width: 6px;
+	height: 6px;
+	border-radius: 100px;
+
+	border-color: #c080ff;
+	background-color: #b468ff;
+	box-shadow: 0 0 0 9px rgba(160, 64, 255, 0.4);
+}
+.progressbar .progressbar-progress .progressbar-scrubber:focus {
+	background-color: white;
+	border-color: white;
+	box-shadow: 0 0 0 9px rgba(255, 255, 255, 0.4);
+	outline: none;
+}
