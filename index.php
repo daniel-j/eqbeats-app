@@ -168,6 +168,11 @@
 				</div>
 			</div>
 			<span class="playerTime" id="timeTotal">5:01</span>
+			<label class="repeat-wrap" id="track-repeat">
+				<input type="checkbox" class="repeat-checkbox" id="repeat-box"/>
+				<div class="repeat-background"></div>
+				<div for="repeat-box" class="repeat-overlay"><div></div></div>
+			</label>
 		</div>
 	</section>
 </div>

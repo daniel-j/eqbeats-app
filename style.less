@@ -542,13 +542,13 @@ input.invisible {
 		text-align: right;
 	}
 	#timeTotal {
-		right: 0px;
+		right: 38px;
 		text-align: left;
 	}
 	#progress-song {
 		position: absolute;
 		left: 167px;
-		right: 54px;
+		right: 92px;
 		top: 0px;
 		/*background-color: rgba(255, 255, 0, 0.5);*/
 	}
@@ -562,6 +562,121 @@ input.invisible {
 		-moz-animation: sample-track-loaded 60s infinite linear;
 		animation: sample-track-loaded 60s infinite linear;
 	}
+
+	#track-repeat {
+
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		.repeat-overlay {
+			&:before {
+				border-left-color: #292929;
+			}
+			div:before {
+				border-right-color: #292929;
+			}
+		}
+		.repeat-checkbox:focus {
+			~ .repeat-background {
+				background-color: #777;
+			}
+			~ .repeat-overlay {
+				&:before {
+					border-left-color: #777;
+				}
+				div:before {
+					border-right-color: #777;
+				}
+			}
+		}
+	}
+
+	.repeat-wrap {
+		position: relative;
+		width: 38px;
+		height: 32px;
+		overflow: hidden;
+		
+		.repeat-checkbox {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 1px;
+			height: 1px;
+			-webkit-appearence: none;
+			margin: 0px;
+			opacity: 0;
+
+
+			&:checked ~ .repeat-overlay {
+				 
+				border-color: #fff;
+				
+				&:after {
+					 border-left-color: #fff;
+				}
+				div:after {
+					 border-right-color: #fff;
+				}
+			}
+		}
+		.repeat-background {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+		}
+		.repeat-overlay {
+			border: 2px solid #555;
+			position: relative;
+			border-top-left-radius: 40% 100%;
+			border-bottom-right-radius: 40% 100%;
+			width: 25px;
+			height: 14px;
+			left: 4px;
+			top: 7px;
+			display: block;
+			div {
+				position: absolute;
+				
+			}
+			&:before {
+				content: "";
+				position: absolute;
+				border: 10px solid transparent;
+				border-left-color: white;
+				left: 22px;
+				top: -11px;
+			}
+			&:after {
+				content: "";
+				position: absolute;
+				border: 7px solid transparent;
+				border-left-color: #555;
+				left: 22px;
+				top: -8px;
+			}
+			div:before {
+				content: "";
+				position: absolute;
+				border: 10px solid transparent;
+				border-right-color: white;
+				left: -17px;
+				top: 4px;
+			}
+			div:after {
+				content: "";
+				position: absolute;
+				border: 7px solid transparent;
+				border-right-color: #555;
+				left: -11px;
+				top: 7px;
+			}
+		}
+	}
+	
+	
 }
 
 @-webkit-keyframes sample-track {
