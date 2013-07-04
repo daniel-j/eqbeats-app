@@ -26,6 +26,7 @@
 				<li id="nav-queue"><span tabindex="0" data-url="queue" data-section="queue">Play queue</span></li>
 				<li id="nav-blog"><span tabindex="0" data-url="blog" data-section="blog">Blog</span></li>
 				<li class="separator"></li>
+				<li id="nav-favourites"><span tabindex="0" data-url="favourites" data-section="playlist">Favourites</span></li>
 				<li><span tabindex="0" data-url="playlist/81" data-section="playlist">My pony playlist</span></li>
 				<li><span tabindex="0" data-url="playlist/35" data-section="playlist">Another playlist. But with a longer name.</span></li>
 				<li><span tabindex="0" data-url="playlist/2" data-section="playlist">Another playlist of mine</span></li>
@@ -65,7 +66,7 @@
 
 				<div class="tracklist-big-wrap">
 					<div class="left">
-						<h3><a href="./#!/latest">Latest</a></h3>
+						<h3><a href="./latest">Latest</a></h3>
 						<ul class="tracklist-big">
 							<li tabindex="0">
 								<div class="art art-thumb" style="background-image: url('https://eqbeats.org/track/3408/art/thumb');"></div>
@@ -85,7 +86,7 @@
 						</ul>
 					</div>
 					<div class="left">
-						<h3><a href="./#!/featured">Featured</a></h3>
+						<h3><a href="./featured">Featured</a></h3>
 						<ul class="tracklist-big">
 							<li tabindex="0">
 								<div class="art art-thumb" style="background-image: url('https://eqbeats.org/track/5248/art/thumb');"></div>
@@ -95,7 +96,7 @@
 						</ul>
 					</div>
 					<div class="left">
-						<h3><a href="./#!/random">Random</a></h3>
+						<h3><a href="./random">Random</a></h3>
 						<ul class="tracklist-big">
 							<li tabindex="0">
 								<div class="art art-thumb" style="background-image: url('https://eqbeats.org/track/5248/art/thumb');"></div>
