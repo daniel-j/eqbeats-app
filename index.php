@@ -20,8 +20,9 @@
 <div id="wrapper">
 	<div class="flex-columns main-wrapper">
 		<section class="left-pane">
+			<div id="searchbar-wrap"><input type="search" id="searchbar" placeholder="Search"></div>
+
 			<ul id="left-menu">
-				<li id="searchbar-wrap"><input type="search" id="searchbar" placeholder="Search"></li>
 				<li id="nav-home"><span tabindex="0" data-url="" data-section="home">Home</span></li>
 				<li id="nav-queue"><span tabindex="0" data-url="queue" data-section="queue">Play queue</span></li>
 				<li id="nav-blog"><span tabindex="0" data-url="blog" data-section="blog">Blog</span></li>

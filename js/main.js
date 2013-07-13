@@ -1,23 +1,15 @@
+require.config({
+	paths: {
+		zepto: 'lib/zepto',
+		underscore: 'lib/underscore',
+		backbone: 'lib/backbone'
+	}
 
-require(["historyManager", "api"], function (historyManager, api) {
+});
+
+require(['app'], function (App) {
 	'use strict';
 
-	console.log(historyManager);
-
-	historyManager.on('state', function (state) {
-		switch (state.controller) {
-			case "": // Home
-
-				// ... stuff ...
-
-				break;
-		}
-	});
-
-	historyManager.initialize();
-
-	api.getPlaylist(81, function (err, data) {
-		console.log(data);
-	});
+	App.initialize();
 
 });
