@@ -11,10 +11,12 @@ Live demo: http://djazz.se/apps/eqbeats/
 
 Screenshot: http://i.imgur.com/JIRRUpg.png
 
-Install
+Installation
 ---
 You could install this on your own server, or you can even use it locally if you compile the LESS stylesheet to CSS first, because it's using Ajax (can't fetch stuff locally).
 Just clone this repo into a directory and enjoy! It's all static files so it should work on any webserver (apache, nginx, express..)
+
+There isn't much to configure, it works out of the box!
 
 Features
 ---
