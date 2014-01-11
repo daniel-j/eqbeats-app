@@ -38,7 +38,9 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
       state.set({
         collection: collection,
         duration: 0,
-        canPlayPause: true
+        canPlayPause: true,
+        buffered: 0,
+        time: 0
       });
       if (!fromQueue) {
         state.set({
@@ -58,7 +60,6 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
     },
     playNextTrack: function() {
       var collection, index, nextTrack, queue, queueTtrack, track;
-      console.log("play next!");
       queue = App.request("queue:entities");
       queueTtrack = queue.shift();
       if (queueTtrack) {
@@ -66,7 +67,6 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
       }
       track = state.get('track');
       collection = state.get('collection');
-      console.log(track, collection);
       if (collection && track) {
         index = collection.indexOf(track);
         if (index !== -1) {
@@ -102,6 +102,11 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
         audioTag.pause();
       }
       return this.updatePlayState();
+    },
+    seek: function(time) {
+      try {
+        return audioTag.currentTime = time;
+      } catch (_error) {}
     },
     updatePlayState: function() {
       return state.set({
@@ -189,7 +194,10 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
   App.commands.setHandler('track:play:prev', function() {
     return API.playPrevTrack();
   });
-  return App.commands.setHandler('track:toggle:play', function() {
+  App.commands.setHandler('track:toggle:play', function() {
     return API.togglePlayPause();
+  });
+  return App.commands.setHandler('track:seek', function(time) {
+    return API.seek(time);
   });
 });

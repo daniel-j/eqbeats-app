@@ -644,11 +644,12 @@ input.invisible {
 		right: 38px;
 		text-align: left;
 	}
-	#progress-song {
+	#progress-region {
 		position: absolute;
 		left: 167px;
 		right: 92px;
-		top: 0px;
+		top: 0;
+
 		/*background-color: rgba(255, 255, 0, 0.5);*/
 	}
 	/*#progress-song .progressbar-progress {
@@ -821,9 +822,12 @@ input.invisible {
 		/*background-color: rgb(141, 190, 15);
 		background-color: rgb(128, 0, 255);*/
 		background-color: rgb(160, 64, 255);
-		-webkit-transition: width .5s linear;
-		-moz-transition: width .5s linear;
-		transition: width .1s linear;
+		
+		&:not(.isDragging) {
+			-webkit-transition: width .3s ease-out;
+			-moz-transition: width .3s ease-out;
+			transition: width .3s ease-out;
+		}
 
 		.progressbar-scrubber {
 			position: absolute;
@@ -841,9 +845,9 @@ input.invisible {
 			box-shadow: 0 0 0 9px rgba(160, 64, 255, 0.4);
 
 			&:focus {
-				background-color: white;
+				/*background-color: white;
 				border-color: white;
-				box-shadow: 0 0 0 9px rgba(255, 255, 255, 0.4);
+				box-shadow: 0 0 0 9px rgba(255, 255, 255, 0.4);*/
 				outline: none;
 			}
 		}

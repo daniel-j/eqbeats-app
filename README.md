@@ -23,6 +23,7 @@ Features
  * Listen to your and others playlists
  * Browse other artists tracks and playlists
  * Discover new music
+ * Queue tracks
 
 Todo/missing features
 ---
@@ -37,6 +38,7 @@ Todo/missing features
  * Responsive design for smaller screens
  * Mobile support (Android, iOS..)
  * Context menu on tracks, right now only tracks in playlists are queueable
+ * Search, browse all artists and tracks available
 
 Thanks
 ---

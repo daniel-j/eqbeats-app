@@ -8,7 +8,7 @@ this.App.module('Player', function(Player, App, Backbone, Marionette, $, _) {
       controls: '#media-controls',
       time: '#timeElapsed',
       duration: '#timeTotal',
-      progress: '#progress-song'
+      progress: '#progress-region'
     }
   });
   Player.Controls = Marionette.ItemView.extend({
@@ -62,24 +62,81 @@ this.App.module('Player', function(Player, App, Backbone, Marionette, $, _) {
   });
   return Player.Progress = Marionette.ItemView.extend({
     template: '#player-progress',
-    className: 'progressbar-track',
+    initialize: function() {
+      this.isMouseDown = false;
+      $(window).mousemove(this.onMouseMove.bind(this));
+      $(window).mouseup(this.onMouseUp.bind(this));
+      $(window).blur(this.onMouseUp.bind(this));
+      return this.dragRatio = 0;
+    },
+    onClose: function() {},
+    events: {
+      'mousedown #progress-song': 'onMouseDown'
+    },
+    onMouseDown: function(e) {
+      if (!this.model.get('canPlayPause')) {
+        return;
+      }
+      this.isMouseDown = true;
+      this.dragRatio = 0;
+      this.onMouseMove(e);
+      return this.progress.addClass('isDragging');
+    },
+    onMouseMove: function(e) {
+      var left, ratio, w, x;
+      if (!this.isMouseDown || !this.model.get('canPlayPause')) {
+        return;
+      }
+      left = this.bar.offset().left;
+      left += 16;
+      w = this.bar.width() - 8;
+      x = e.pageX;
+      ratio = (x - left) / w;
+      ratio = Math.min(1, Math.max(0, ratio));
+      this.progress.css({
+        width: ratio * 100 + "%"
+      });
+      return this.dragRatio = ratio;
+    },
+    onMouseUp: function(e) {
+      if (!this.isMouseDown || !this.model.get('canPlayPause') || !this.model.get('duration')) {
+        return;
+      }
+      this.isMouseDown = false;
+      this.progress.removeClass('isDragging');
+      return App.commands.execute("track:seek", this.dragRatio * this.model.get('duration'));
+    },
+    onRender: function() {
+      this.progress = this.$el.find(".progressbar-progress");
+      this.buffered = this.$el.find(".progressbar-loaded");
+      return this.bar = this.$el.find("#progress-song");
+    },
     modelEvents: {
       'change:time': 'updateProgress',
       'change:duration': 'updateProgress',
       'change:buffered': 'updateBuffered'
     },
-    onRender: function() {
-      this.progress = this.$el.find(".progressbar-progress");
-      return this.buffered = this.$el.find(".progressbar-loaded");
-    },
     updateProgress: function() {
+      var ratio;
+      if (this.isMouseDown) {
+        return;
+      }
+      ratio = this.model.get('time') / this.model.get('duration');
+      if (isNaN(ratio)) {
+        ratio = 0;
+      }
       return this.progress.css({
-        width: (this.model.get('time') / this.model.get('duration')) * 100 + "%"
+        width: ratio * 100 + "%"
       });
     },
     updateBuffered: function() {
+      var ratio;
+      ratio = this.model.get('buffered') / this.model.get('duration');
+      if (isNaN(ratio)) {
+        ratio = 0;
+      }
       return this.buffered.css({
-        width: (this.model.get('buffered') / this.model.get('duration')) * 100 + "%"
+        width: ratio * 100 + "%"
       });
     }
   });

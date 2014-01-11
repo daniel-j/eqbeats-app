@@ -38,6 +38,8 @@
 				collection: collection
 				duration: 0
 				canPlayPause: true
+				buffered: 0
+				time: 0
 
 			if !fromQueue
 				state.set
@@ -58,7 +60,7 @@
 			, 2000###
 
 		playNextTrack: ->
-			console.log "play next!"
+
 			queue = App.request "queue:entities"
 
 			queueTtrack = queue.shift()
@@ -68,8 +70,6 @@
 			
 			track = state.get 'track'
 			collection = state.get 'collection'
-
-			console.log track, collection
 
 			if collection and track
 
@@ -109,6 +109,10 @@
 				audioTag.pause()
 
 			@updatePlayState()
+
+		seek: (time) ->
+			try
+				audioTag.currentTime = time
 
 		updatePlayState: ->
 			state.set
@@ -187,3 +191,5 @@
 		API.playPrevTrack()
 	App.commands.setHandler 'track:toggle:play', ->
 		API.togglePlayPause()
+	App.commands.setHandler 'track:seek', (time) ->
+		API.seek time

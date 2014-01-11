@@ -82,36 +82,4 @@ this.App.module('Player', function(Player, App, Backbone, Marionette, $, _) {
       return new Player.Layout;
     }
   });
-  /*
-  
-  		menuRegion: (menu) ->
-  			listView = @getMenuView menu
-  
-  			listView.on 'itemview:menuitem:clicked', (iv, menuitem) ->
-  				if menuitem.has 'url'
-  					App.navigate menuitem.get('url'), trigger: true
-  
-  				if menuitem.has 'action'
-  					menuitem.get('action').apply(menuitem)
-  
-  			@show listView, region: @layout.menu
-  
-  		playlistsRegion: (user) ->
-  			listView = @getPlaylistsView user
-  
-  			listView.on 'itemview:menuitem:clicked', (iv, playlist) ->
-  				App.navigate "playlist/"+playlist.get('id'), trigger: true
-  
-  			@show listView, region: @layout.playlists
-  
-  
-  		getMenuView: (menu) ->
-  			new Sidepanel.Menu
-  				collection: menu
-  
-  		getPlaylistsView: (user) ->
-  			new Sidepanel.Menu
-  				collection: user.get('playlists')
-  */
-
 });

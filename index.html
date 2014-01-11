@@ -71,16 +71,16 @@
 <script type="text/template" id="tracklist-big-item">
 	<div class="art art-thumb" style="background-image: url('<%
 		if (download.art) { %><%=download.art%>/thumb<% }
-		else { %><% }
+		else { %>img/album-placeholder.png<% }
 		%>');"></div>
-	<div><a class="title" href="javascript:" tabindex="-1"><%=title%></a></div>
+	<div><a class="title" href="javascript:" tabindex="-1" title="<%=title%>"><%=title%></a></div>
 	<div><a class="artist" href="#/user/<%=artist.id%>" tabindex="-1"><%=artist.name%></a></div>
 </script>
 
 <script type="text/template" id="player-template">
 	<div id="media-controls"></div>
 	<span class="playerTime" id="timeElapsed"></span>
-	<div class="progressbar" id="progress-song"></div>
+	<div id="progress-region"></div>
 	<span class="playerTime" id="timeTotal"></span>
 	<label class="repeat-wrap" id="track-repeat">
 		<input type="checkbox" class="repeat-checkbox" disabled id="repeat-box"/>
@@ -99,9 +99,13 @@
 	<%=formatTime(time)%>
 </script>
 <script type="text/template" id="player-progress">
-	<div class="progressbar-loaded"></div>
-	<div class="progressbar-progress">
-		<div class="progressbar-scrubber" tabindex="0"></div>
+	<div class="progressbar" id="progress-song">
+		<div class="progressbar-track">
+			<div class="progressbar-loaded"></div>
+			<div class="progressbar-progress">
+				<div class="progressbar-scrubber" tabindex="0"></div>
+			</div>
+		</div>
 	</div>
 </script>
 <script type="text/template" id="player-duration">
@@ -116,7 +120,7 @@
 		<div id="playlists"></div>
 		<h3>Tracks</h3>
 	
-		<div id="tracks" class="left"></div>
+		<div id="tracks"></div>
 	</div>
 </script>
 <script type="text/template" id="user-info">

@@ -9,7 +9,7 @@
 			controls: '#media-controls'
 			time: '#timeElapsed'
 			duration: '#timeTotal'
-			progress: '#progress-song'
+			progress: '#progress-region'
 			
 	
 	Player.Controls = Marionette.ItemView.extend
@@ -54,24 +54,74 @@
 	Player.Progress = Marionette.ItemView.extend
 
 		template: '#player-progress'
-		className: 'progressbar-track'
+
+		initialize: ->
+			@isMouseDown = false
+			$(window).mousemove @onMouseMove.bind(@)
+			$(window).mouseup @onMouseUp.bind(@)
+			$(window).blur @onMouseUp.bind(@)
+			@dragRatio = 0
+
+		onClose: ->
+			# TODO: unbind global event listeners
+
+		events:
+			'mousedown #progress-song': 'onMouseDown'
+
+		onMouseDown: (e) ->
+			return if !@model.get 'canPlayPause'
+			@isMouseDown = true
+			@dragRatio = 0
+			@onMouseMove e
+			@progress.addClass 'isDragging'
+		onMouseMove: (e) ->
+			return if !@isMouseDown or !@model.get('canPlayPause')
+			{ left } = @bar.offset()
+			left += 16
+			#winw = $(window).width()
+			w = @bar.width()-8
+			x = e.pageX
+			
+			# console.log x-left, -(left+w)+x
+			ratio = (x-left)/w
+			ratio = Math.min(1, Math.max(0, ratio))
+
+			#console.log ratio
+			@progress.css
+				width: ratio*100+"%"
+			@dragRatio = ratio
+
+		onMouseUp: (e) ->
+			return if !@isMouseDown or !@model.get('canPlayPause') or !@model.get('duration')
+			@isMouseDown = false
+			@progress.removeClass 'isDragging'
+			App.commands.execute "track:seek", @dragRatio*@model.get('duration')
+			# @updateProgress()
+
+		onRender: ->
+			@progress = @$el.find ".progressbar-progress"
+			@buffered = @$el.find ".progressbar-loaded"
+			@bar = @$el.find "#progress-song"
 
 		modelEvents:
 			'change:time': 'updateProgress'
 			'change:duration': 'updateProgress'
 			'change:buffered': 'updateBuffered'
 
-		onRender: ->
-			@progress = @$el.find ".progressbar-progress"
-			@buffered = @$el.find ".progressbar-loaded"
-
 		updateProgress: ->
+			return if @isMouseDown
+			ratio = @model.get('time')/@model.get('duration')
+			if isNaN ratio
+				ratio = 0
 			@progress.css
-				width: (@model.get('time')/@model.get('duration'))*100+"%"
+				width: ratio*100+"%"
 
 		updateBuffered: ->
+			ratio = @model.get('buffered')/@model.get('duration')
+			if isNaN ratio
+				ratio = 0
 			@buffered.css
-				width: (@model.get('buffered')/@model.get('duration'))*100+"%"
+				width: ratio*100+"%"
 
 
 		
