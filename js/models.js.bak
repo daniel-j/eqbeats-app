@@ -1,0 +1,81 @@
+App.module('Model', function (Model, App, Backbone, Marionette, $, _) {
+	'use strict';
+
+	Model.User = Backbone.Model.extend({
+		url: function () {
+			return config.host+"/user/"+this.id+"/json";
+		},
+		initialize: function () {
+			this.set('tracks', new App.Collection.Tracks());
+			this.set('playlists', new App.Collection.Playlists());
+		},
+		parse: function (resp, options) {
+			this.get('tracks').set(resp.tracks);
+			this.get('playlists').set(resp.playlists);
+			delete resp.tracks;
+			delete resp.playlists;
+			return resp;
+		},
+		defaults: {
+			name: '',
+			avatar: '',
+			description: '',
+			html_description: ''
+		}
+	});
+	Model.Track = Backbone.Model.extend({
+		url: function () {
+			return config.host+"/track/"+this.id+"/json";
+		},
+		defaults: {
+			title: '',
+			artist: {
+				name:''
+			}
+		}
+	});
+	Model.Playlist = Backbone.Model.extend({
+		url: function () {
+			return config.host+"/playlist/"+this.id+"/json";
+		},
+		initialize: function () {
+			var self = this;
+			this.set('collection', new App.Collection.Tracks());
+		},
+		parse: function (resp, options) {
+			this.get('collection').set(resp.tracks);
+			return resp;
+		},
+		defaults: {
+			name: '',
+			author: {
+				name: ''
+			},
+			description: '',
+			html_description: ''
+		}
+	});
+
+	Model.SimplePlaylist = Backbone.Model.extend({
+		defaults: {
+			name: '',
+			author: {
+				name: ''
+			},
+			description: '',
+			html_description: ''
+		}
+	});
+	Model.Favourites = Backbone.Model.extend({
+		url: function () {
+			return config.host+'/user/'+this.id+'/favorites/json';
+		},
+		initialize: function () {
+			this.set('tracks', new App.Collection.Tracks());
+		},
+		parse: function (resp, options) {
+			this.get('tracks').set(resp);
+			return {};
+		}
+	});
+});

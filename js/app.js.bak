@@ -1,0 +1,18 @@
+(function () {
+	'use strict';
+
+	window.config = {
+		host: "https://eqbeats.org"
+	};
+
+	Backbone.emulateHTTP = true;
+	Backbone.fetchCache.localStorage = false;
+
+	window.App = new Backbone.Marionette.Application();
+
+	App.addRegions({
+		mainRegion: "#main-content",
+
+	});
+
+}());
