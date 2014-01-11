@@ -3,13 +3,17 @@
 
 	Search.Router = Marionette.AppRouter.extend
 		appRoutes:
-			"search/": "showQueue"
+			"tracks/search?q=:query": "showSearchResult"
 
 	API =
-		showQueue: ->
-			new Search.Show.Controller
+		showSearchResult: (query) ->
+			new Search.Result.Controller
+				query: query
 		
 	App.addInitializer ->
+
 		new Search.Router
 			controller: API
+
+		App.commands.setHandler 'search:tracks', API.showSearchResult
 

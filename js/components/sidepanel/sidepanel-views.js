@@ -7,6 +7,18 @@ this.App.module('Sidepanel', function(Sidepanel, App, Backbone, Marionette, $, _
       menu: '#menu',
       playlists: '#playlists',
       trackinfo: '#trackinfo-region'
+    },
+    events: {
+      'submit #search-form': 'searchSubmit'
+    },
+    searchSubmit: function(e) {
+      var query;
+      e.preventDefault();
+      query = this.$el.find('#searchbar').val().trim();
+      document.location.href = "#/tracks/search?q=" + encodeURIComponent(query);
+      if (query.length > 0) {
+        return App.execute("search:tracks", query);
+      }
     }
   });
   Sidepanel.MenuItem = Marionette.ItemView.extend({

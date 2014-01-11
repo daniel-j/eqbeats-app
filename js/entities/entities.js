@@ -90,6 +90,15 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
     model: Entities.Track,
     url: config.host + '/tracks/random/json'
   });
+  Entities.SearchTracks = Backbone.Collection.extend({
+    model: Entities.Track,
+    initialize: function(options) {
+      return this.query = options.query;
+    },
+    url: function() {
+      return config.host + '/tracks/search/json?q=' + encodeURIComponent(this.query);
+    }
+  });
   Entities.Tracks = Backbone.Collection.extend({
     model: Entities.Track
   });
@@ -168,6 +177,16 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
     getQueue: function() {
       return premade.queue;
     },
+    searchTracks: function(query) {
+      var tracks;
+      tracks = new Entities.SearchTracks({
+        query: query
+      });
+      tracks.fetch({
+        prefill: doPrefill
+      });
+      return tracks;
+    },
     setCurrentUser: function(id) {
       premade.currentUser.set({
         id: id
@@ -220,6 +239,9 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
   });
   App.reqres.setHandler("queue:entities", function() {
     return API.getQueue();
+  });
+  App.reqres.setHandler("search:tracks:entities", function(query) {
+    return API.searchTracks(query);
   });
   App.commands.setHandler('current:user:set', function(id) {
     return API.setCurrentUser(id);

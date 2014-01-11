@@ -5,47 +5,35 @@
 		initialize: (options) ->
 			{ query } = options
 			
-			user = App.request "user:entity", id
+			tracks = App.request "search:tracks:entities", query
+			info = new Backbone.Model
+				query: query
 			
 			@layout = @getLayoutView()
 
 			@listenTo @layout, 'show', =>
-				
-				@showUserInfoView user
-				@showUserPlaylistsView user
-				@showUserTracksView user
+				@showInfoView info
+				@showTracksView tracks
 
 			@show @layout,
 				loading:
-					entities: user
-		
-		showUserInfoView: (user) ->
-			infoView = @getInfoView user
-			@layout.info.show infoView
-		
-		showUserPlaylistsView: (user) ->
-			listView = @getPlaylistsView user
-			@layout.playlists.show listView
-		
-		showUserTracksView: (user) ->
-			listView = @getTracksView user
-			@layout.tracks.show listView
-		
+					entities: tracks
 
-		getInfoView: (user) ->
-			new Show.Info
-				model: user
-
-		getPlaylistsView: (user) ->
-			new Show.Playlists
-				collection: user.get 'playlists'
-
-		getTracksView: (user) ->
-			new App.View.TracklistBig
-				collection: user.get 'tracks'
-				className: 'tracklist-big noArtist'
-
+		showInfoView: (info) ->
+			infoView = @getInfoView info
+			@show infoView, region: @layout.info
 		
+		showTracksView: (tracks) ->
+			listView = @getTracksView tracks
+			@show listView, region: @layout.result
+
+		getInfoView: (info) ->
+			new Result.Info
+				model: info
+
+		getTracksView: (tracks) ->
+			new App.View.Playlist
+				collection: tracks
 
 		getLayoutView: ->
-			new Show.Layout
+			new Result.Layout

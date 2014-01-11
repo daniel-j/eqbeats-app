@@ -11,7 +11,6 @@ this.App.module('User.Show', function(Show, App, Backbone, Marionette, $, _) {
   });
   Show.Info = Marionette.ItemView.extend({
     template: '#user-info',
-    tagName: 'div',
     modelEvents: {
       'sync': 'render'
     }

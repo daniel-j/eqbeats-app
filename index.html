@@ -28,7 +28,7 @@
 </div>
 
 <script type="text/template" id="sidepanel">
-	<div id="searchbar-wrap"><input type="search" id="searchbar" placeholder="Search"></div>
+	<div id="searchbar-wrap"><form action="#/tracks/search" id="search-form"><input type="search" id="searchbar" placeholder="Search"></form></div>
 	<div id="left-menu" class="flex">
 		<div id="menu"></div>
 		<div id="playlists"></div>
@@ -195,6 +195,18 @@
 	<div id="queue"></div>
 </script>
 
+<script type="text/template" id="search-result-template">
+		
+		<div id="info"></div>
+	
+	<div id="result"></div>
+</script>
+
+<script type="text/template" id="search-result-info">
+	<img src="img/magnifier.png" align=left style="margin-top: 12px; margin-right: 10px; margin-left: 10px;">
+	<h1><%=_.escape(query)%></h1>
+</script>
+
 <script type="text/template" id="empty-template"> </script>
 
 
@@ -229,6 +241,10 @@
 <script src="js/contents/index.js"></script>
 <script src="js/contents/index-show.js"></script>
 <script src="js/contents/index-show-views.js"></script>
+
+<script src="js/contents/search.js"></script>
+<script src="js/contents/search-result.js"></script>
+<script src="js/contents/search-result-views.js"></script>
 
 <script src="js/contents/playlist.js"></script>
 <script src="js/contents/playlist-show.js"></script>

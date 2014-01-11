@@ -4,17 +4,20 @@ this.App.module('Search', function(Search, App, Backbone, Marionette, $, _) {
   var API;
   Search.Router = Marionette.AppRouter.extend({
     appRoutes: {
-      "search/": "showQueue"
+      "tracks/search?q=:query": "showSearchResult"
     }
   });
   API = {
-    showQueue: function() {
-      return new Search.Show.Controller;
+    showSearchResult: function(query) {
+      return new Search.Result.Controller({
+        query: query
+      });
     }
   };
   return App.addInitializer(function() {
-    return new Search.Router({
+    new Search.Router({
       controller: API
     });
+    return App.commands.setHandler('search:tracks', API.showSearchResult);
   });
 });

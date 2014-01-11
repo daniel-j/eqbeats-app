@@ -3,55 +3,50 @@ this.App.module('Search.Result', function(Result, App, Backbone, Marionette, $, 
   'use strict';
   return Result.Controller = App.Controllers.Base.extend({
     initialize: function(options) {
-      var query, user,
+      var info, query, tracks,
         _this = this;
       query = options.query;
-      user = App.request("user:entity", id);
+      tracks = App.request("search:tracks:entities", query);
+      info = new Backbone.Model({
+        query: query
+      });
       this.layout = this.getLayoutView();
       this.listenTo(this.layout, 'show', function() {
-        _this.showUserInfoView(user);
-        _this.showUserPlaylistsView(user);
-        return _this.showUserTracksView(user);
+        _this.showInfoView(info);
+        return _this.showTracksView(tracks);
       });
       return this.show(this.layout, {
         loading: {
-          entities: user
+          entities: tracks
         }
       });
     },
-    showUserInfoView: function(user) {
+    showInfoView: function(info) {
       var infoView;
-      infoView = this.getInfoView(user);
-      return this.layout.info.show(infoView);
-    },
-    showUserPlaylistsView: function(user) {
-      var listView;
-      listView = this.getPlaylistsView(user);
-      return this.layout.playlists.show(listView);
-    },
-    showUserTracksView: function(user) {
-      var listView;
-      listView = this.getTracksView(user);
-      return this.layout.tracks.show(listView);
-    },
-    getInfoView: function(user) {
-      return new Show.Info({
-        model: user
+      infoView = this.getInfoView(info);
+      return this.show(infoView, {
+        region: this.layout.info
       });
     },
-    getPlaylistsView: function(user) {
-      return new Show.Playlists({
-        collection: user.get('playlists')
+    showTracksView: function(tracks) {
+      var listView;
+      listView = this.getTracksView(tracks);
+      return this.show(listView, {
+        region: this.layout.result
       });
     },
-    getTracksView: function(user) {
-      return new App.View.TracklistBig({
-        collection: user.get('tracks'),
-        className: 'tracklist-big noArtist'
+    getInfoView: function(info) {
+      return new Result.Info({
+        model: info
+      });
+    },
+    getTracksView: function(tracks) {
+      return new App.View.Playlist({
+        collection: tracks
       });
     },
     getLayoutView: function() {
-      return new Show.Layout;
+      return new Result.Layout;
     }
   });
 });

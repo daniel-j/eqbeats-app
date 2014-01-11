@@ -87,6 +87,13 @@
 	Entities.Random = Backbone.Collection.extend
 		model: Entities.Track
 		url: config.host+'/tracks/random/json'
+
+	Entities.SearchTracks = Backbone.Collection.extend
+		model: Entities.Track
+		initialize: (options) ->
+			@query = options.query
+		url: ->
+			config.host+'/tracks/search/json?q='+encodeURIComponent(@query)
 	
 	
 	Entities.Tracks = Backbone.Collection.extend
@@ -161,6 +168,12 @@
 		getQueue: ->
 			premade.queue
 
+		searchTracks: (query) ->
+			tracks = new Entities.SearchTracks
+				query: query
+			tracks.fetch
+				prefill: doPrefill
+			tracks
 
 		setCurrentUser: (id) ->
 			premade.currentUser.set {id: id}, silent: true
@@ -196,6 +209,9 @@
 
 	App.reqres.setHandler "queue:entities", ->
 		API.getQueue()
+
+	App.reqres.setHandler "search:tracks:entities", (query) ->
+		API.searchTracks query
 
 
 	App.commands.setHandler 'current:user:set', (id) ->

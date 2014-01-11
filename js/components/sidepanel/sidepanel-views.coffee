@@ -9,6 +9,16 @@
 			playlists: '#playlists'
 			trackinfo: '#trackinfo-region'
 
+		events:
+			'submit #search-form': 'searchSubmit'
+
+		searchSubmit: (e) ->
+			e.preventDefault()
+			query = @$el.find('#searchbar').val().trim()
+			document.location.href = "#/tracks/search?q="+encodeURIComponent(query)
+			if query.length > 0
+				App.execute "search:tracks", query
+
 	
 	Sidepanel.MenuItem = Marionette.ItemView.extend
 		getTemplate: ->

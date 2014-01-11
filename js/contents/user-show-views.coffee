@@ -11,7 +11,6 @@
 
 	Show.Info = Marionette.ItemView.extend
 		template: '#user-info'
-		tagName: 'div'
 		
 		modelEvents:
 			'sync': 'render'
