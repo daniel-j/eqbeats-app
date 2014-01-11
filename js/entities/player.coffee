@@ -102,8 +102,6 @@
 				prevTrack = collection.at index-1
 				@playTrack prevTrack, collection
 
-
-
 		togglePlayPause: ->
 			if audioTag.paused
 				audioTag.play()
