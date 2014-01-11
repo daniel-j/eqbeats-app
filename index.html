@@ -73,8 +73,10 @@
 		if (download.art) { %><%=download.art%>/thumb<% }
 		else { %>img/album-placeholder.png<% }
 		%>');"></div>
-	<div><a class="title" href="javascript:" tabindex="-1" title="<%=title%>"><%=title%></a></div>
+	<div><span class="title" title="<%=title%>"><%=title%></span></div>
+	<button type="button" class="add-to-queue" tabindex="-1">Queue</button>
 	<div><a class="artist" href="#/user/<%=artist.id%>" tabindex="-1"><%=artist.name%></a></div>
+
 </script>
 
 <script type="text/template" id="player-template">

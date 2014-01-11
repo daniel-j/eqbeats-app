@@ -43,6 +43,7 @@
 		getTracksView: (user) ->
 			new App.View.TracklistBig
 				collection: user.get 'tracks'
+				className: 'tracklist-big noArtist'
 
 		
 

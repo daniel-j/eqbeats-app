@@ -183,12 +183,14 @@ input.invisible {
 	}
 }
 
+
 .tracklist-big {
 	list-style-type: none;
 	overflow: hidden;
 	border: 1px solid #d6d5d2;
 	margin-bottom: 10px;
 	padding: 0px;
+	cursor: default;
 
 	li {
 		padding-right: 7px;
@@ -198,6 +200,7 @@ input.invisible {
 		height: 48px;
 		overflow: hidden;
 		font-size: 13px;
+		color: #408;
 
 		&:last-child {
 			border-bottom: none;
@@ -233,6 +236,29 @@ input.invisible {
 		}
 		.artist {
 			font-size: 15px;
+		}
+
+		.add-to-queue {
+			float: right;
+			display: none;
+			margin-top: -5px;
+		}
+		&:hover {
+			.add-to-queue {
+				display: block;
+			}
+		}
+	}
+	&.noArtist {
+		.title {
+			font-size: 20px;
+			line-height: 48px;
+		}
+		.artist {
+			display: none;
+		}
+		.add-to-queue {
+			margin-top: -25px;
 		}
 	}
 }
@@ -287,6 +313,7 @@ input.invisible {
 	}
 	
 }
+
 
 .left-pane {
 	width: 20%;

@@ -46,7 +46,8 @@ this.App.module('User.Show', function(Show, App, Backbone, Marionette, $, _) {
     },
     getTracksView: function(user) {
       return new App.View.TracklistBig({
-        collection: user.get('tracks')
+        collection: user.get('tracks'),
+        className: 'tracklist-big noArtist'
       });
     },
     getLayoutView: function() {

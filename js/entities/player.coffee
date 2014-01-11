@@ -46,9 +46,11 @@
 					track: track
 
 			state.get('trackData').set track.toJSON()
-
+			isPlaying = !audioTag.paused
 			audioTag.src = track.get('stream').mp3;
-			audioTag.play()
+			
+			if isPlaying
+				audioTag.play()
 
 			
 			@updateCanPlayNext()
@@ -87,20 +89,25 @@
 		playPrevTrack: ->
 			track = state.get 'track'
 			collection = state.get 'collection'
-			index = collection.indexOf track
+			if track and collection
 
-			
+				index = collection.indexOf track
 
-			if state.get('time') > 5 or index == 0
+				if state.get('time') > 5 or index == 0
+					try
+						audioTag.currentTime = 0
+					@updateCanPlayPrev()
+					return
+					
+
+				if index > 0
+					prevTrack = collection.at index-1
+					@playTrack prevTrack, collection
+			else if state.get 'canPlayPause'
 				try
 					audioTag.currentTime = 0
 				@updateCanPlayPrev()
-				return
-				
 
-			if index > 0
-				prevTrack = collection.at index-1
-				@playTrack prevTrack, collection
 
 		togglePlayPause: ->
 			if audioTag.paused
@@ -127,27 +134,19 @@
 			else
 				track = state.get 'track'
 				collection = state.get 'collection'
-				index = collection.indexOf track
-				
-				if index != -1 and index+1 < collection.length
-					canPlayNext = true
+				if track and collection
+					index = collection.indexOf track
+					
+					if index != -1 and index+1 < collection.length
+						canPlayNext = true
 
 			state.set
 				canNext: canPlayNext
 
 		updateCanPlayPrev: ->
-			track = state.get 'track'
-			collection = state.get 'collection'
-			index = collection.indexOf track
-			canPlayPrev = false
-
-			if state.get('time') > 5 or index == 0
-				canPlayPrev = true
-			else if index > 0
-				canPlayPrev = true
 
 			state.set
-				canPrev: canPlayPrev
+				canPrev: state.get 'canPlayPause'
 
 
 	audioTag.addEventListener 'ended', ->
@@ -185,6 +184,7 @@
 
 	App.commands.setHandler 'track:play', (track) ->
 		API.playTrack track, track.collection
+		audioTag.play()
 	App.commands.setHandler 'track:play:next', ->
 		API.playNextTrack()
 	App.commands.setHandler 'track:play:prev', ->

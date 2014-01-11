@@ -32,6 +32,7 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
       return state.get('trackData');
     },
     playTrack: function(track, collection, fromQueue) {
+      var isPlaying;
       if (fromQueue == null) {
         fromQueue = false;
       }
@@ -48,8 +49,11 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
         });
       }
       state.get('trackData').set(track.toJSON());
+      isPlaying = !audioTag.paused;
       audioTag.src = track.get('stream').mp3;
-      audioTag.play();
+      if (isPlaying) {
+        audioTag.play();
+      }
       this.updateCanPlayNext();
       return this.updateCanPlayPrev();
       /*setTimeout ->
@@ -82,17 +86,24 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
       var collection, index, prevTrack, track;
       track = state.get('track');
       collection = state.get('collection');
-      index = collection.indexOf(track);
-      if (state.get('time') > 5 || index === 0) {
+      if (track && collection) {
+        index = collection.indexOf(track);
+        if (state.get('time') > 5 || index === 0) {
+          try {
+            audioTag.currentTime = 0;
+          } catch (_error) {}
+          this.updateCanPlayPrev();
+          return;
+        }
+        if (index > 0) {
+          prevTrack = collection.at(index - 1);
+          return this.playTrack(prevTrack, collection);
+        }
+      } else if (state.get('canPlayPause')) {
         try {
           audioTag.currentTime = 0;
         } catch (_error) {}
-        this.updateCanPlayPrev();
-        return;
-      }
-      if (index > 0) {
-        prevTrack = collection.at(index - 1);
-        return this.playTrack(prevTrack, collection);
+        return this.updateCanPlayPrev();
       }
     },
     togglePlayPause: function() {
@@ -122,9 +133,11 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
       } else {
         track = state.get('track');
         collection = state.get('collection');
-        index = collection.indexOf(track);
-        if (index !== -1 && index + 1 < collection.length) {
-          canPlayNext = true;
+        if (track && collection) {
+          index = collection.indexOf(track);
+          if (index !== -1 && index + 1 < collection.length) {
+            canPlayNext = true;
+          }
         }
       }
       return state.set({
@@ -132,18 +145,8 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
       });
     },
     updateCanPlayPrev: function() {
-      var canPlayPrev, collection, index, track;
-      track = state.get('track');
-      collection = state.get('collection');
-      index = collection.indexOf(track);
-      canPlayPrev = false;
-      if (state.get('time') > 5 || index === 0) {
-        canPlayPrev = true;
-      } else if (index > 0) {
-        canPlayPrev = true;
-      }
       return state.set({
-        canPrev: canPlayPrev
+        canPrev: state.get('canPlayPause')
       });
     }
   };
@@ -186,7 +189,8 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
     return API.updateCanPlayNext();
   });
   App.commands.setHandler('track:play', function(track) {
-    return API.playTrack(track, track.collection);
+    API.playTrack(track, track.collection);
+    return audioTag.play();
   });
   App.commands.setHandler('track:play:next', function() {
     return API.playNextTrack();

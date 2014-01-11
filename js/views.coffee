@@ -25,6 +25,7 @@
 			@$el.prop 'tabindex', 0
 
 		events:
+			"click button.add-to-queue": -> App.commands.execute "track:queue:clicked", @model, @
 			"dblclick": ->
 				App.commands.execute "track:play", @model, @
 

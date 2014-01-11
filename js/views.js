@@ -28,6 +28,9 @@ this.App.module('View', function(View, App, Backbone, Marionette, $, _) {
       return this.$el.prop('tabindex', 0);
     },
     events: {
+      "click button.add-to-queue": function() {
+        return App.commands.execute("track:queue:clicked", this.model, this);
+      },
       "dblclick": function() {
         return App.commands.execute("track:play", this.model, this);
       }
