@@ -32,7 +32,7 @@
 		getCurrentTrack: ->
 			state.get 'trackData'
 
-		playTrack: (track, collection, fromQueue = false) ->
+		playTrack: (track, collection, fromQueue = false, doPlay = false) ->
 
 			state.set
 				collection: collection
@@ -49,7 +49,7 @@
 			isPlaying = !audioTag.paused
 			audioTag.src = track.get('stream').mp3;
 			
-			if isPlaying
+			if isPlaying or doPlay
 				audioTag.play()
 
 			
@@ -61,14 +61,14 @@
 				audioTag.currentTime = state.get('duration')-2
 			, 2000###
 
-		playNextTrack: ->
+		playNextTrack: (automatic = false) ->
 
 			queue = App.request "queue:entities"
 
 			queueTtrack = queue.shift()
 
 			if queueTtrack
-				return @playTrack queueTtrack, state.get('collection'), true
+				return @playTrack queueTtrack, state.get('collection'), true, automatic
 			
 			track = state.get 'track'
 			collection = state.get 'collection'
@@ -82,7 +82,7 @@
 					nextTrack = collection.at index+1
 					if nextTrack != undefined
 
-						return @playTrack nextTrack, collection
+						return @playTrack nextTrack, collection, false, automatic
 
 			audioTag.pause()
 
@@ -150,7 +150,7 @@
 
 
 	audioTag.addEventListener 'ended', ->
-		API.playNextTrack()
+		API.playNextTrack true
 
 	audioTag.addEventListener 'play', API.updatePlayState
 	audioTag.addEventListener 'pause', API.updatePlayState
@@ -183,8 +183,7 @@
 		API.updateCanPlayNext()
 
 	App.commands.setHandler 'track:play', (track) ->
-		API.playTrack track, track.collection
-		audioTag.play()
+		API.playTrack track, track.collection, false, true
 	App.commands.setHandler 'track:play:next', ->
 		API.playNextTrack()
 	App.commands.setHandler 'track:play:prev', ->

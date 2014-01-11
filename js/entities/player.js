@@ -31,10 +31,13 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
     getCurrentTrack: function() {
       return state.get('trackData');
     },
-    playTrack: function(track, collection, fromQueue) {
+    playTrack: function(track, collection, fromQueue, doPlay) {
       var isPlaying;
       if (fromQueue == null) {
         fromQueue = false;
+      }
+      if (doPlay == null) {
+        doPlay = false;
       }
       state.set({
         collection: collection,
@@ -51,7 +54,7 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
       state.get('trackData').set(track.toJSON());
       isPlaying = !audioTag.paused;
       audioTag.src = track.get('stream').mp3;
-      if (isPlaying) {
+      if (isPlaying || doPlay) {
         audioTag.play();
       }
       this.updateCanPlayNext();
@@ -62,12 +65,15 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
       */
 
     },
-    playNextTrack: function() {
+    playNextTrack: function(automatic) {
       var collection, index, nextTrack, queue, queueTtrack, track;
+      if (automatic == null) {
+        automatic = false;
+      }
       queue = App.request("queue:entities");
       queueTtrack = queue.shift();
       if (queueTtrack) {
-        return this.playTrack(queueTtrack, state.get('collection'), true);
+        return this.playTrack(queueTtrack, state.get('collection'), true, automatic);
       }
       track = state.get('track');
       collection = state.get('collection');
@@ -76,7 +82,7 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
         if (index !== -1) {
           nextTrack = collection.at(index + 1);
           if (nextTrack !== void 0) {
-            return this.playTrack(nextTrack, collection);
+            return this.playTrack(nextTrack, collection, false, automatic);
           }
         }
       }
@@ -151,7 +157,7 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
     }
   };
   audioTag.addEventListener('ended', function() {
-    return API.playNextTrack();
+    return API.playNextTrack(true);
   });
   audioTag.addEventListener('play', API.updatePlayState);
   audioTag.addEventListener('pause', API.updatePlayState);
@@ -189,8 +195,7 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
     return API.updateCanPlayNext();
   });
   App.commands.setHandler('track:play', function(track) {
-    API.playTrack(track, track.collection);
-    return audioTag.play();
+    return API.playTrack(track, track.collection, false, true);
   });
   App.commands.setHandler('track:play:next', function() {
     return API.playNextTrack();

@@ -45,7 +45,7 @@
 </script>
 
 <script type="text/template" id="trackinfo-template">
-	<div id="track-title-wrapper" class="marquee"><span><a href="javascript:" id="track-title" tabindex="-1"><%=title%></a></span></div>
+	<div id="track-title-wrapper" class="marquee"><span><a href="javascript:" id="track-title" title="<%=title%>" tabindex="-1"><%=title%></a></span></div>
 	<div id="track-artist-wrapper" class="marquee"><span><a href="#/user/<%=artist.id%>" id="track-artist" tabindex="-1"><%=artist.name%></a></span></div>
 </script>
 
@@ -76,7 +76,6 @@
 	<div><span class="title" title="<%=title%>"><%=title%></span></div>
 	<button type="button" class="add-to-queue" tabindex="-1">Queue</button>
 	<div><a class="artist" href="#/user/<%=artist.id%>" tabindex="-1"><%=artist.name%></a></div>
-
 </script>
 
 <script type="text/template" id="player-template">
