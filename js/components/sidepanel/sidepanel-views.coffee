@@ -15,8 +15,8 @@
 		searchSubmit: (e) ->
 			e.preventDefault()
 			query = @$el.find('#searchbar').val().trim()
-			document.location.href = "#/tracks/search?q="+encodeURIComponent(query)
 			if query.length > 0
+				document.location.href = "#/tracks/search?q="+encodeURIComponent(query)
 				App.execute "search:tracks", query
 
 	

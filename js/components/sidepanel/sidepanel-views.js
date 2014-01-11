@@ -15,8 +15,8 @@ this.App.module('Sidepanel', function(Sidepanel, App, Backbone, Marionette, $, _
       var query;
       e.preventDefault();
       query = this.$el.find('#searchbar').val().trim();
-      document.location.href = "#/tracks/search?q=" + encodeURIComponent(query);
       if (query.length > 0) {
+        document.location.href = "#/tracks/search?q=" + encodeURIComponent(query);
         return App.execute("search:tracks", query);
       }
     }
