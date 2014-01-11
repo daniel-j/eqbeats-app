@@ -8,6 +8,7 @@ This is a web app using the eqbeats public json api to let you browse eqbeats wi
 Try it out!
 ---
 Live demo: http://djazz.se/apps/eqbeats/
+
 Screenshot: http://i.imgur.com/JIRRUpg.png
 
 Install
@@ -31,6 +32,14 @@ Todo/missing features
  * Cache playlists, tracks, user pages..
  * Offline usage (sync playlists)
  * Track pages
+ * Responsive design for smaller screens
+ * Mobile support (Android, iOS..)
+
+Thanks
+---
+The app is written in CoffeeScript and relies on the MVC framework Marionette (extended from Backbone), originally created by Derick Bailey.
+Many thanks to Brian Mann for his Marionette+Backbone screencast series over at http://www.backbonerails.com/
+Also a big thanks to the eqbeats developers, for fixing API bugs and other stuff!
 
 eqbeats website: https://eqbeats.org
 Old screenshot: http://i.imgur.com/pAkkQ0b.png
