@@ -44,9 +44,9 @@ Many thanks to Brian Mann for his Marionette+Backbone screencast series over at 
 Also a big thanks to the eqbeats developers, for fixing API bugs and other stuff!
 
 
-
-eqbeats website: https://eqbeats.org
-
-Old screenshot: http://i.imgur.com/pAkkQ0b.png
-
-My Little Pony is a trademark of Hasbro Inc.
+Other links
+---
+ * Equestrian Beats website: https://eqbeats.org/
+ * Marionette website: http://marionettejs.com/
+ * Backbone documentation: http://backbonejs.org/
+ * Old screenshot: http://i.imgur.com/pAkkQ0b.png
