@@ -38,9 +38,15 @@ Todo/missing features
 Thanks
 ---
 The app is written in CoffeeScript and relies on the MVC framework Marionette (extended from Backbone), originally created by Derick Bailey.
+
 Many thanks to Brian Mann for his Marionette+Backbone screencast series over at http://www.backbonerails.com/
+
 Also a big thanks to the eqbeats developers, for fixing API bugs and other stuff!
 
+
+
 eqbeats website: https://eqbeats.org
+
 Old screenshot: http://i.imgur.com/pAkkQ0b.png
+
 My Little Pony is a trademark of Hasbro Inc.
