@@ -53,9 +53,9 @@
 			@updateCanPlayPrev()
 			
 
-			setTimeout ->
+			###setTimeout ->
 				audioTag.currentTime = state.get('duration')-2
-			, 2000
+			, 2000###
 
 		playNextTrack: ->
 			console.log "play next!"

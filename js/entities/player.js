@@ -49,10 +49,12 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
       audioTag.src = track.get('stream').mp3;
       audioTag.play();
       this.updateCanPlayNext();
-      this.updateCanPlayPrev();
-      return setTimeout(function() {
-        return audioTag.currentTime = state.get('duration') - 2;
-      }, 2000);
+      return this.updateCanPlayPrev();
+      /*setTimeout ->
+      				audioTag.currentTime = state.get('duration')-2
+      			, 2000
+      */
+
     },
     playNextTrack: function() {
       var collection, index, nextTrack, queue, queueTtrack, track;
