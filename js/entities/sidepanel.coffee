@@ -27,7 +27,7 @@
 			className: 'separator'
 
 		changeUser: new Sidepanel.MenuItem
-			title: 'Change user (for testing)'
+			title: 'Change user'
 			action: ->
 				user = App.request "current:user:entity"
 
@@ -43,7 +43,6 @@
 			menuitems.queue
 			menuitems.profile
 			menuitems.favourites
-			new Sidepanel.MenuItem menuitems.separator
 			menuitems.changeUser
 			new Sidepanel.MenuItem menuitems.separator
 		]

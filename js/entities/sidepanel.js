@@ -31,7 +31,7 @@ this.App.module("Entities.Sidepanel", function(Sidepanel, App, Backbone, Marione
       className: 'separator'
     },
     changeUser: new Sidepanel.MenuItem({
-      title: 'Change user (for testing)',
+      title: 'Change user',
       action: function() {
         var newUser, user;
         user = App.request("current:user:entity");
@@ -43,7 +43,7 @@ this.App.module("Entities.Sidepanel", function(Sidepanel, App, Backbone, Marione
     })
   };
   premade = {
-    menu: new Sidepanel.MenuItems([menuitems.index, menuitems.queue, menuitems.profile, menuitems.favourites, new Sidepanel.MenuItem(menuitems.separator), menuitems.changeUser, new Sidepanel.MenuItem(menuitems.separator)])
+    menu: new Sidepanel.MenuItems([menuitems.index, menuitems.queue, menuitems.profile, menuitems.favourites, menuitems.changeUser, new Sidepanel.MenuItem(menuitems.separator)])
   };
   App.vent.on('current:user:changed', function(user) {
     menuitems.profile.set({
