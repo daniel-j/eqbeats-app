@@ -36,6 +36,7 @@ Todo/missing features
  * Track pages
  * Responsive design for smaller screens
  * Mobile support (Android, iOS..)
+ * Context menu on tracks, right now only tracks in playlists are queueable
 
 Thanks
 ---
