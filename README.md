@@ -9,6 +9,8 @@ Try it out!
 ---
 Live demo: http://djazz.se/apps/eqbeats/
 
+Video demo: http://www.youtube.com/watch?v=gUstlOXm_FY
+
 Screenshot: http://i.imgur.com/JIRRUpg.png
 
 Installation
