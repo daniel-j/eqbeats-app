@@ -15,6 +15,10 @@ this.App.module("Entities.Sidepanel", function(Sidepanel, App, Backbone, Marione
       title: "Home",
       url: ""
     }),
+    blog: new Sidepanel.MenuItem({
+      title: "Blog",
+      url: "blog"
+    }),
     queue: new Sidepanel.MenuItem({
       title: "Queue",
       url: "queue"
@@ -43,7 +47,7 @@ this.App.module("Entities.Sidepanel", function(Sidepanel, App, Backbone, Marione
     })
   };
   premade = {
-    menu: new Sidepanel.MenuItems([menuitems.index, menuitems.queue, menuitems.profile, menuitems.favourites, menuitems.changeUser, new Sidepanel.MenuItem(menuitems.separator)])
+    menu: new Sidepanel.MenuItems([menuitems.index, menuitems.blog, menuitems.queue, menuitems.profile, menuitems.favourites, menuitems.changeUser, new Sidepanel.MenuItem(menuitems.separator)])
   };
   App.vent.on('current:user:changed', function(user) {
     menuitems.profile.set({

@@ -14,6 +14,9 @@
 		index: new Sidepanel.MenuItem
 			title: "Home"
 			url: ""
+		blog: new Sidepanel.MenuItem
+			title: "Blog"
+			url: "blog"
 		queue: new Sidepanel.MenuItem
 			title: "Queue"
 			url: "queue"
@@ -40,6 +43,7 @@
 	premade =
 		menu: new Sidepanel.MenuItems [
 			menuitems.index
+			menuitems.blog
 			menuitems.queue
 			menuitems.profile
 			menuitems.favourites

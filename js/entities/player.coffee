@@ -22,6 +22,15 @@
 
 	state = new Player.State
 	audioTag = Player.audioTag = new Audio
+	mp3Source = document.createElement 'source'
+	mp3Source.type = "audio/mp3"
+	audioTag.appendChild mp3Source
+	oggSource = document.createElement 'source'
+	oggSource.type = "audio/ogg; codecs=vorbis"
+	audioTag.appendChild oggSource
+	aacSource = document.createElement 'source'
+	aacSource.type = "audio/aac"
+	audioTag.appendChild aacSource
 
 	# state.get('trackData').on 'all', (ev) -> console.log ev
 
@@ -47,8 +56,13 @@
 
 			state.get('trackData').set track.toJSON()
 			isPlaying = !audioTag.paused
-			audioTag.src = track.get('stream').mp3;
-			
+
+			aacSource.src = track.get('stream').aac
+			mp3Source.src = track.get('stream').mp3
+			oggSource.src = track.get('stream').vorbis
+
+			audioTag.load()
+
 			if isPlaying or doPlay
 				audioTag.play()
 
