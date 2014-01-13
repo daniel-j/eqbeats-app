@@ -684,8 +684,23 @@ ul.downloads:hover li{
 	border-spacing: 0px;
 	cursor: default;
 
+	.art-thumb {
+		width: 30px;
+		height: 30px;
+		background-position: center center;
+		background-size: cover;
+		background-image: url('../img/album-placeholder.png');
+	}
+
+	th, td {
+		&:first-child {
+			padding-right: 7px;
+			padding-left: 7px;
+		}
+	}
+
 	thead tr th {
-		padding: 10px 12px;
+		padding: 10px 7px;
 		border: 1px solid #e6e6e6;
 		background: url("../img/title-grad.png") repeat-x bottom #fbfbfb;
 		text-align: left;
@@ -705,7 +720,7 @@ ul.downloads:hover li{
 		td {
 			font-size: 14px;
 			padding: 0;
-			padding-left: 12px;
+			padding-left: 7px;
 			color: #408;
 			height: 30px;
 			position: relative;

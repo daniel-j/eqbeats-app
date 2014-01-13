@@ -263,7 +263,7 @@
 	<table class="playlist-table">
 		<thead>
 			<tr>
-				<!--<th></th>-->
+				<th style="width: 24px;"></th>
 				<th><h4>Title</h4></th>
 				<th><h4>Artist</h4></th>
 			</tr>
@@ -273,9 +273,9 @@
 </script>
 
 <script type="text/template" id="playlist-track">
-	<!--<td>
-		<div style="width: 32px; height: 32px; background-position: center center; background-size: cover; <% if (download.art) { %> background-image: url('<%=download.art%>/thumb');<% } %>"></div>
-	</td>-->
+	<td>
+		<div class="art-thumb" style="<% if (download.art) { %> background-image: url('<%=download.art%>/thumb');<% } %>"></div>
+	</td>
 	<td>
 		<span><%=_.escape(title)%></span>
 	</td>
