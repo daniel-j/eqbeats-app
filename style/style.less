@@ -111,6 +111,9 @@ input.invisible {
 .none {
 	display: none;
 }
+.relative {
+	position: relative;
+}
 
 .flex-columns {
 	display: -webkit-flex;
@@ -726,11 +729,12 @@ ul.downloads:hover li{
 				visibility: hidden;
 				position: absolute;
 				right: 2px;
-				top: 2px;
+				top: -4px;
 
 				button {
-					padding: 2px;
+					padding: 3px;
 					font-size: 12px;
+					margin: 0px;
 				}
 			}
 			&:hover .buttons {

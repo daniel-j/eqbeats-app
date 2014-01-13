@@ -280,9 +280,11 @@
 		<span><%=_.escape(title)%></span>
 	</td>
 	<td>
-		<div class="buttons">
-			<button type="button" class="view-track" tabindex="-1">Track info</button>
-			<button type="button" class="add-to-queue" tabindex="-1">Queue</button>
+		<div class="relative">
+			<div class="buttons">
+				<button type="button" class="view-track" tabindex="-1">Track info</button>
+				<button type="button" class="add-to-queue" tabindex="-1">Queue</button>
+			</div>
 		</div>
 		<a href="#/user/<%=artist.id%>" tabindex="-1" title="<%=_.escape(artist.name)%>"><%=_.escape(artist.name)%></a>
 	</td>
