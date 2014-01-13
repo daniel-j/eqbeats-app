@@ -38,7 +38,8 @@ this.App.module('View', function(View, App, Backbone, Marionette, $, _) {
       "click button.add-to-queue": function() {
         return App.commands.execute("track:queue:clicked", this.model, this);
       },
-      "dblclick": "playTrack"
+      "dblclick": "playTrack",
+      "click .art-thumb": "playTrack"
     },
     playTrack: function() {
       return App.commands.execute("track:play", this.model, this);

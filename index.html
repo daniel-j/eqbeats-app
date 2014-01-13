@@ -81,7 +81,7 @@
 <script type="text/template" id="tracklist-big-item">
 	<div class="art-thumb" style="<%
 		if (download.art) { %>background-image: url('<%=download.art%>/thumb');<% }
-		%>"></div>
+		%>"><div class="overlay"></div></div>
 	<div class="title"><a title="<%=_.escape(title)%>" href="#/track/<%=id%>" tabindex="-1"><%=_.escape(title)%></a></div>
 	<button type="button" class="add-to-queue" tabindex="-1">Queue</button>
 	<div class="artist">by <a href="#/user/<%=artist.id%>" tabindex="-1" title="<%=_.escape(artist.name)%>"><%=_.escape(artist.name)%></a></div>

@@ -37,6 +37,7 @@
 		events:
 			"click button.add-to-queue": -> App.commands.execute "track:queue:clicked", @model, @
 			"dblclick": "playTrack"
+			"click .art-thumb": "playTrack"
 
 		playTrack: ->
 			App.commands.execute "track:play", @model, @
