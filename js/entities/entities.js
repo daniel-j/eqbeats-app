@@ -22,7 +22,8 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
       avatar: '',
       description: '',
       html_description: '',
-      follower_count: 0
+      num_followers: 0,
+      num_favorites: 0
     }
   });
   Entities.Track = Backbone.Model.extend({
@@ -58,7 +59,8 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
         name: ''
       },
       description: '',
-      html_description: ''
+      html_description: '',
+      num_tracks: 0
     }
   });
   Entities.SimplePlaylist = Backbone.Model.extend({
@@ -68,7 +70,8 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
         name: ''
       },
       description: '',
-      html_description: ''
+      html_description: '',
+      num_tracks: 0
     }
   });
   Entities.Favourites = Backbone.Model.extend({
