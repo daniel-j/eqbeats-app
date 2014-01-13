@@ -34,6 +34,7 @@
 			license: ''
 			artist:
 				name:''
+				avatar: ''
 
 		idAttribute: '_no_id_'
 			

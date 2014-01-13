@@ -34,7 +34,8 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
       html_description: '',
       license: '',
       artist: {
-        name: ''
+        name: '',
+        avatar: ''
       }
     },
     idAttribute: '_no_id_'
