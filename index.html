@@ -178,7 +178,7 @@
 	<div class="cover" style="<% if (download.art) { %>background-image: url('<%=download.art%>'), url('<%=download.art%>/medium'), url('<%=download.art%>/thumb');<% } %>">
 		<div class="gradient">
 			<div class="info">
-				<a href="#/user/<%=artist.id%>"><img class="avatar" src="img/avatar.png"></a>
+				<a href="#/user/<%=artist.id%>"><div class="avatar"></div></a>
 				<h2><span title="<%=_.escape(title)%>"><%=_.escape(title)%></span></h2>
 				<h4>
 					<span><a href="#/user/<%=artist.id%>"><%=_.escape(artist.name)%></a></span>

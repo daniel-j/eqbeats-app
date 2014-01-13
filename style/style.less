@@ -285,6 +285,7 @@ ul.playlists {
 					overflow: hidden;
 					max-width: 100%;
 					-webkit-transition: background-color .2s ease-in-out;
+
 					&:hover {
 						background-color: rgba(0,0,0,0.75);
 					}
@@ -310,9 +311,15 @@ ul.playlists {
 
 		.avatar {
 			float: left;
-			max-height: 80px;
-			max-width: 80px;
+			border-radius: 3px;
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-image: url('../img/avatar.png');
+			width: 80px;
+			height: 80px;
 			margin-right: 20px;
+			border-radius: 3px;
 		}
 
 		button.play-track {
