@@ -58,7 +58,7 @@
 			url: "user/"+user.get('id')
 		
 		menuitems.favourites.set
-			url: "user/"+user.get('id')+"/favourites"
+			url: "user/"+user.get('id')+"/favorites"
 
 	API =
 		getMenu: ->

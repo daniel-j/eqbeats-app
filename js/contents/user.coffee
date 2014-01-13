@@ -4,7 +4,7 @@
 	User.Router = Marionette.AppRouter.extend
 		appRoutes:
 			"user/:id": "showUser"
-			"user/:id/favourites": "showFavourites"
+			"user/:id/favorites": "showFavourites"
 
 	API =
 		showUser: (id) ->

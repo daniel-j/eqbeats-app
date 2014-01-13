@@ -55,7 +55,7 @@ this.App.module("Entities.Sidepanel", function(Sidepanel, App, Backbone, Marione
       url: "user/" + user.get('id')
     });
     return menuitems.favourites.set({
-      url: "user/" + user.get('id') + "/favourites"
+      url: "user/" + user.get('id') + "/favorites"
     });
   });
   API = {
