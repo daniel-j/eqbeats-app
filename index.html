@@ -178,12 +178,10 @@
 	<div class="cover" style="<% if (download.art) { %>background-image: url('<%=download.art%>'), url('<%=download.art%>/medium'), url('<%=download.art%>/thumb');<% } %>">
 		<div class="gradient">
 			<div class="info">
-			<img class="avatar" src="img/avatar.png" height=80>
-				<h2><span><%=_.escape(title)%></span></h2>
+				<a href="#/user/<%=artist.id%>"><img class="avatar" src="img/avatar.png"></a>
+				<h2><span title="<%=_.escape(title)%>"><%=_.escape(title)%></span></h2>
 				<h4>
-					<span>
-						<a href="#/user/<%=artist.id%>"><%=_.escape(artist.name)%></a>
-					</span>
+					<span><a href="#/user/<%=artist.id%>"><%=_.escape(artist.name)%></a></span>
 				</h4>
 			</div>
 
