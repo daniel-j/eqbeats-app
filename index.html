@@ -178,14 +178,15 @@
 	<div class="cover" style="<% if (download.art) { %>background-image: url('<%=download.art%>'), url('<%=download.art%>/medium'), url('<%=download.art%>/thumb');<% } %>">
 		<div class="gradient">
 			<div class="info">
+			<img class="avatar" src="img/avatar.png" height=80>
 				<h2><span><%=_.escape(title)%></span></h2>
 				<h4>
 					<span>
-						by <!--<img src="<%=artist.avatar%>" height=32>-->
 						<a href="#/user/<%=artist.id%>"><%=_.escape(artist.name)%></a>
 					</span>
 				</h4>
 			</div>
+
 			<button type="button" class="play-track"></button>
 			<button type="button" class="add-to-queue" tabindex="-1">Queue</button>
 		</div>
@@ -193,7 +194,6 @@
 </script>
 
 <script type="text/template" id="track-info">
-
 	<div class="toolbar">
 		<img src="img/icons/drive-download.png">
 		Download:
