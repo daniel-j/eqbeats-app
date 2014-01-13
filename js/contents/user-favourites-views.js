@@ -2,7 +2,8 @@
 this.App.module('User.Favourites', function(Favourites, App, Backbone, Marionette, $, _) {
   'use strict';
   Favourites.Layout = Marionette.Layout.extend({
-    template: '#favourites',
+    template: '#favourites-layout',
+    className: 'favourites',
     regions: {
       info: '#info',
       list: '#list'

@@ -41,7 +41,7 @@
 		<input type="checkbox" id="toggle-trackinfo" class="invisible" checked>
 		<label for="toggle-trackinfo">
 			<div class="coverart-wrap"><img id="coverart" src="img/album-placeholder.png"></div>
-			<div id="coverart-thumb" class="art-thumb" style="background-image: url('img/album-placeholder.png');"></div>
+			<div id="coverart-thumb" class="art-thumb"></div>
 		</label>
 		<div id="trackinfo-region"></div>
 	</div>
@@ -57,29 +57,34 @@
 </script>
 
 <script type="text/template" id="index">
-	<img src="img/eqbeats-app-logo.png" height=48 align=left style="margin-top: 5px; margin-right: 12px; margin-left: 20px;">
-	<h1 style="padding-top: 8px;">Equestrian Beats</h1>
+	<div style="margin-top: 15px; margin-right: 16px; margin-left: 40px; float: left;">
+		<img src="img/eqbeats.png" height=64>
+	</div>
+
+	<h1 style="padding-top: 20px; font-size: 35px;">Equestrian Beats</h1>
+
 	<div class="content-padding" style="clear: both;">
 		<div class="left">
-			<h3>Featured</h3>
+			<h3><a href="#/featured">Featured</a></h3>
 			<div id="featured"></div>
 		</div>
 		<div class="left">
-			<h3>Latest</h3>
+			<h3><a href="#/latest">Latest</a></h3>
 			<div id="latest"></div>
 		</div>
 	</div>
+	<br>
+	<br>
 </script>
 
 
 <script type="text/template" id="tracklist-big-item">
-	<div class="art art-thumb" style="background-image: url('<%
-		if (download.art) { %><%=download.art%>/thumb<% }
-		else { %>img/album-placeholder.png<% }
-		%>');"></div>
-	<div><span class="title" title="<%=title%>"><%=title%></span></div>
+	<div class="art-thumb" style="<%
+		if (download.art) { %>background-image: url('<%=download.art%>/thumb');<% }
+		%>"></div>
+	<div class="title"><a title="<%=_.escape(title)%>" href="#/track/<%=id%>" tabindex="-1"><%=_.escape(title)%></a></div>
 	<button type="button" class="add-to-queue" tabindex="-1">Queue</button>
-	<div><a class="artist" href="#/user/<%=artist.id%>" tabindex="-1"><%=artist.name%></a></div>
+	<div class="artist">by <a href="#/user/<%=artist.id%>" tabindex="-1" title="<%=_.escape(artist.name)%>"><%=_.escape(artist.name)%></a></div>
 </script>
 
 <script type="text/template" id="player-template">
@@ -118,53 +123,140 @@
 </script>
 
 
-<script type="text/template" id="user">
+<script type="text/template" id="user-layout">
 	<div id="info"></div>
 	<div class="content-padding">
+		<h3>
+			<img src="img/icons/disc.png">
+			Tracks
+		</h3>
+		<div id="tracks"></div>
 		<h3>Playlists</h3>
 		<div id="playlists"></div>
-		<h3>Tracks</h3>
-	
-		<div id="tracks"></div>
 	</div>
+	<br>
+	<br>
 </script>
 <script type="text/template" id="user-info">
-	<h1><img src="<%=avatar%>" height=64 align=top> <a href="#/user/<%=id%>"><%=name%></a></h1>
-	<br>
-	<div class="content-padding">
-		<%=html_description%>
+	<div class="avatar" style="background-image: url('<%=avatar%>');"></div>
+	<h2><%=_.escape(name)%></h2>
+	<div class="items">
+		<div class="item"><img src="img/icons/star.png"> <a href="#/user/<%=id%>/favourites">Favorite tracks</a></div>
 	</div>
-
-	<h3 class="content-padding"><a href="#/user/<%=id%>/favourites">★ Favourites</a></h3>
+	<div style="clear:both;"></div>
+	<% if (html_description) { %>
+		<div class="notes"><%=html_description%></div>
+	<% } %>
 </script>
-
 <script type="text/template" id="user-playlist">
-	<a href="#/playlist/<%=id%>"><%=name%></a> by <%=author.name%> (<%=html_description%>)
+	<div class="title"><a href="#/playlist/<%=id%>"><%=_.escape(name)%></a></div>
+	<% if (html_description) { %>
+		<div class="description"><%=html_description%></div>
+		<% } %>
 </script>
 
-<script type="text/template" id="favourites">
+<script type="text/template" id="favourites-layout">
 	<div id="info"></div>
 	<div id="list"></div>
 </script>
 <script type="text/template" id="favourites-info">
-	<h1><img src="<%=avatar%>" height=48 align=top> ★ <a href="#/user/<%=id%>"><%=name%></a>'<!--'-->s favourite tracks</h1>
+	<div class="avatar" style="background-image: url('<%=avatar%>');"></div>
+	<h2><a href="#/user/<%=id%>"><%=name%></a>'<!--'-->s favorite tracks <!--<img src="img/icons/star.png">--></h2>
+	<div style="clear: both;"></div>
+
+</script>
+
+<script type="text/template" id="track-layout">
+	<div id="track-player"></div>
+	<div id="info" class="content-padding"></div>
+</script>
+<script type="text/template" id="track-info">
+
+	<div class="toolbar">
+		<img src="img/icons/drive-download.png">
+		Download:
+		<ul class="downloads">
+			<%
+				var types = ['original','mp3','opus','vorbis','aac','art'];
+				var titles = ['Original', 'MP3', 'Opus', 'OGG Vorbis', 'AAC', 'Cover art'];
+
+				_.each(types, function (type) {
+					var url = download[type];
+					if (!url) { return; }
+					var index = types.indexOf(type);
+					var title = titles[index];
+			
+					%> <li><a href="<%=url%>" target="_blank"><span><%=title%></span></a></li> <%
+				})
+			%>
+		</ul>
+		<% if (typeof tags !== 'undefined' && tags.length > 0) { %>
+			&nbsp;&nbsp;
+			<img src="img/icons/tag.png">
+			Tags:
+			<% _.each(tags, function (tag) { %>
+				<a href="<%=config.host%>/tracks/tag/<%=tag%>" target="_blank"><%=tag%></a>
+			<% }) %>
+		<% } %>
+	</div>
+
+	<div class="leftcol">
+
+
+
+		<% if (download.art) { %>
+			<img src="<%=download.art%>/medium" class="art">
+		<% } %>
+
+
+		<div class="license">
+			<% switch (license) {
+				case 'Copyright': %> <%=license%> © <%=artist.name%> <% break;
+				default: %> <%=license%> <% break;
+			} %>
+		</div>
+
+	</div>
+
+	<div class="rightcol">
+		<% if (html_description) { %>
+			<div class="notes"><%=html_description%></div>
+		<% } %>
+	</div>
+
+	<div style="clear: both;"></div>
+</script>
+<script type="text/template" id="track-player-template">
+	<div class="cover" style="<% if (download.art) { %>background-image: url('<%=download.art%>');<% } %>">
+		<div class="gradient">
+			<div class="info">
+				<h2><span><%=_.escape(title)%></span></h2>
+				<h4>
+					<span>by <!--<img src="<%=artist.avatar%>" height=32>--> <a href="#/user/<%=artist.id%>"><%=_.escape(artist.name)%></a></span>
+				</h4>
+			</div>
+			<button type="button" class="play-track"></button>
+		</div>
+	</div>
+
 </script>
 
 
-<script type="text/template" id="playlist">
+<script type="text/template" id="playlist-layout">
 	<div class="content-padding">
 		<div id="info"></div>
 	</div>
 	<div id="list"></div>
 </script>
 <script type="text/template" id="playlist-info">
-
-	<h1><a href="#/playlist/<%=id%>"><%=name%></a></h1>
-	<%=html_description%>
-	<br>
-	A playlist by <img src="<%=author.avatar%>" height=32>
-	<a href="#/user/<%=author.id%>"><%=author.name%></a>
-	<br>
+	<h2><%=_.escape(name)%></h2>
+	<h4>
+		by <!--<img src="<%=author.avatar%>" height=32>--> <a href="#/user/<%=author.id%>"><%=_.escape(author.name)%></a>
+	</h4>
+	<% if (html_description) { %>
+		<div class="notes"><%=html_description%></div>
+	<% } %>
+	
 </script>
 
 <script type="text/template" id="playlist-list">
@@ -172,9 +264,8 @@
 		<thead>
 			<tr>
 				<!--<th></th>-->
-				<th>Title</th>
-				<th>Artist</th>
-				<th></th>
+				<th><h4>Title</h4></th>
+				<th><h4>Artist</h4></th>
 			</tr>
 		</thead>
 		<tbody></tbody>
@@ -182,14 +273,19 @@
 </script>
 
 <script type="text/template" id="playlist-track">
-	
 	<!--<td>
 		<div style="width: 32px; height: 32px; background-position: center center; background-size: cover; <% if (download.art) { %> background-image: url('<%=download.art%>/thumb');<% } %>"></div>
 	</td>-->
-	<td><%=title%></td>
-	<td><a href="#/user/<%=artist.id%>" tabindex="-1"><%=artist.name%></a></td>
-	<td><div class="buttons"><button type="button" class="add-to-queue" tabindex="-1">Queue</button></div></td>
-	<!--<td><audio src="<%=stream.mp3%>" controls preload="none"></audio></td>-->
+	<td>
+		<span><%=_.escape(title)%></span>
+	</td>
+	<td>
+		<div class="buttons">
+			<button type="button" class="view-track" tabindex="-1">Track info</button>
+			<button type="button" class="add-to-queue" tabindex="-1">Queue</button>
+		</div>
+		<a href="#/user/<%=artist.id%>" tabindex="-1" title="<%=_.escape(artist.name)%>"><%=_.escape(artist.name)%></a>
+	</td>
 </script>
 
 <script type="text/template" id="queue-template">
@@ -205,7 +301,7 @@
 </script>
 
 <script type="text/template" id="search-result-info">
-	<img src="img/magnifier.png" align=left style="margin-top: 12px; margin-right: 10px; margin-left: 10px;">
+	<img src="img/icons/magnifier.png" align=left style="margin-top: 12px; margin-right: 10px; margin-left: 10px;">
 	<h1><%=_.escape(query)%></h1>
 </script>
 
@@ -214,7 +310,9 @@
 </script>
 
 <script type="text/template" id="empty-template"> </script>
-
+<script type="text/template" id="empty-nothing">
+	Nothing here yet
+</script>
 
 
 <script src="js/libs/backbone.marionette/jquery.js"></script>
@@ -255,6 +353,10 @@
 <script src="js/contents/search.js"></script>
 <script src="js/contents/search-result.js"></script>
 <script src="js/contents/search-result-views.js"></script>
+
+<script src="js/contents/track.js"></script>
+<script src="js/contents/track-show.js"></script>
+<script src="js/contents/track-show-views.js"></script>
 
 <script src="js/contents/playlist.js"></script>
 <script src="js/contents/playlist-show.js"></script>

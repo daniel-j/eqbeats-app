@@ -28,7 +28,7 @@ this.App.module("Entities.Sidepanel", function(Sidepanel, App, Backbone, Marione
       url: ""
     }),
     favourites: new Sidepanel.MenuItem({
-      title: "★ Favourites",
+      title: "★ Favorites",
       url: ""
     }),
     separator: {

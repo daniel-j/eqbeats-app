@@ -2,7 +2,7 @@
 this.App.module('User.Show', function(Show, App, Backbone, Marionette, $, _) {
   'use strict';
   Show.Layout = Marionette.Layout.extend({
-    template: '#user',
+    template: '#user-layout',
     regions: {
       info: '#info',
       tracks: '#tracks',
@@ -11,6 +11,7 @@ this.App.module('User.Show', function(Show, App, Backbone, Marionette, $, _) {
   });
   Show.Info = Marionette.ItemView.extend({
     template: '#user-info',
+    className: 'user',
     modelEvents: {
       'sync': 'render'
     }
@@ -30,6 +31,8 @@ this.App.module('User.Show', function(Show, App, Backbone, Marionette, $, _) {
   });
   return Show.Playlists = Marionette.CollectionView.extend({
     itemView: Show.Playlist,
-    tagName: 'ul'
+    tagName: 'ul',
+    className: 'playlists',
+    emptyView: App.View.EmptyNothingLi
   });
 });

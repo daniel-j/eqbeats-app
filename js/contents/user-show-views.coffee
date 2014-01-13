@@ -2,7 +2,7 @@
 	'use strict'
 
 	Show.Layout = Marionette.Layout.extend
-		template: '#user'
+		template: '#user-layout'
 
 		regions:
 			info: '#info'
@@ -11,6 +11,7 @@
 
 	Show.Info = Marionette.ItemView.extend
 		template: '#user-info'
+		className: 'user'
 		
 		modelEvents:
 			'sync': 'render'
@@ -33,5 +34,7 @@
 	Show.Playlists = Marionette.CollectionView.extend
 		itemView: Show.Playlist
 		tagName: 'ul'
+		className: 'playlists'
+		emptyView: App.View.EmptyNothingLi
 	
 

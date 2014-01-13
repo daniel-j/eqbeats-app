@@ -3,7 +3,7 @@
 	
 	Entities.User = Backbone.Model.extend
 		url: ->
-			config.host+"/user/"+this.id+"/json"
+			config.host+"/user/"+@get('id')+"/json"
 
 		initialize: ->
 			this.set 'tracks', new Entities.Tracks
@@ -25,10 +25,12 @@
 	
 	Entities.Track = Backbone.Model.extend
 		url: ->
-			config.host+"/track/"+this.id+"/json"
+			config.host+"/track/"+@get('id')+"/json"
 		
 		defaults:
 			title: ''
+			html_description: ''
+			license: ''
 			artist:
 				name:''
 
@@ -37,7 +39,7 @@
 		
 	Entities.Playlist = Backbone.Model.extend
 		url: ->
-			config.host+"/playlist/"+this.id+"/json"
+			config.host+"/playlist/"+@get('id')+"/json"
 		
 		initialize: ->
 			this.set 'collection', new Entities.Tracks
@@ -151,6 +153,13 @@
 			user.fetch
 				prefill: doPrefill
 			user
+		getTrack: (id) ->
+			track = new Entities.Track
+				id: id
+			track.fetch
+				prefill: doPrefill
+			track
+
 		getUserFavourites: (id) ->
 			favourites = new Entities.Favourites
 				id: id
@@ -203,6 +212,9 @@
 		API.getUser id
 	App.reqres.setHandler "user:favourites:entities", (id) ->
 		API.getUserFavourites id
+
+	App.reqres.setHandler "track:entity", (id) ->
+		API.getTrack id
 
 	App.reqres.setHandler "playlist:entity", (id) ->
 		API.getPlaylist id

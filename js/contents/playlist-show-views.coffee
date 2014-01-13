@@ -2,7 +2,8 @@
 	'use strict'
 
 	Show.Layout = Marionette.Layout.extend
-		template: '#playlist'
+		template: '#playlist-layout'
+		className: 'playlist'
 
 		regions:
 			info: '#info'

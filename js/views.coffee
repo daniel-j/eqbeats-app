@@ -1,6 +1,11 @@
 @App.module 'View', (View, App, Backbone, Marionette, $, _) ->
 	'use strict'
 
+	View.EmptyNothingLi = Marionette.ItemView.extend
+		template: '#empty-nothing'
+		tagName: 'li'
+		className: 'empty'
+
 	View.PlaylistTrack = Marionette.ItemView.extend
 		template: '#playlist-track'
 		tagName: 'tr'
@@ -10,6 +15,7 @@
 
 		events:
 			"click button.add-to-queue": -> App.commands.execute "track:queue:clicked", @model, @
+			"click button.view-track": -> App.navigate "track/"+@model.get('id')
 			"dblclick": -> App.commands.execute "track:play", @model, @
 
 	View.Playlist = Marionette.CompositeView.extend
@@ -29,6 +35,8 @@
 			"dblclick": ->
 				App.commands.execute "track:play", @model, @
 
+	
+
 	#	events:
 	#		"click button.add-to-queue": -> App.commands.execute "track:queue:clicked", @model, @
 
@@ -36,6 +44,7 @@
 		itemView: View.TracklistBigItem
 		tagName: 'ul'
 		className: 'tracklist-big'
+		emptyView: View.EmptyNothingLi
 	
 
 	### var PlaylistMetaView = Backbone.Marionette.ItemView.extend({

@@ -4,7 +4,7 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
   var API, doPrefill, premade;
   Entities.User = Backbone.Model.extend({
     url: function() {
-      return config.host + "/user/" + this.id + "/json";
+      return config.host + "/user/" + this.get('id') + "/json";
     },
     initialize: function() {
       this.set('tracks', new Entities.Tracks);
@@ -26,10 +26,12 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
   });
   Entities.Track = Backbone.Model.extend({
     url: function() {
-      return config.host + "/track/" + this.id + "/json";
+      return config.host + "/track/" + this.get('id') + "/json";
     },
     defaults: {
       title: '',
+      html_description: '',
+      license: '',
       artist: {
         name: ''
       }
@@ -38,7 +40,7 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
   });
   Entities.Playlist = Backbone.Model.extend({
     url: function() {
-      return config.host + "/playlist/" + this.id + "/json";
+      return config.host + "/playlist/" + this.get('id') + "/json";
     },
     initialize: function() {
       return this.set('collection', new Entities.Tracks);
@@ -154,6 +156,16 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
       });
       return user;
     },
+    getTrack: function(id) {
+      var track;
+      track = new Entities.Track({
+        id: id
+      });
+      track.fetch({
+        prefill: doPrefill
+      });
+      return track;
+    },
     getUserFavourites: function(id) {
       var favourites;
       favourites = new Entities.Favourites({
@@ -233,6 +245,9 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
   });
   App.reqres.setHandler("user:favourites:entities", function(id) {
     return API.getUserFavourites(id);
+  });
+  App.reqres.setHandler("track:entity", function(id) {
+    return API.getTrack(id);
   });
   App.reqres.setHandler("playlist:entity", function(id) {
     return API.getPlaylist(id);

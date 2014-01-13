@@ -24,7 +24,7 @@
 			title: "Profile"
 			url: ""
 		favourites: new Sidepanel.MenuItem
-			title: "★ Favourites"
+			title: "★ Favorites"
 			url: ""
 		separator:
 			className: 'separator'

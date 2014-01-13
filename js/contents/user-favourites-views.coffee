@@ -2,7 +2,8 @@
 	'use strict'
 
 	Favourites.Layout = Marionette.Layout.extend
-		template: '#favourites'
+		template: '#favourites-layout'
+		className: 'favourites'
 
 		regions:
 			info: '#info'

@@ -27,6 +27,7 @@ Features
  * Discover new music
  * Queue tracks
  * Search for tracks
+ * Download tracks
 
 Todo/missing features
 ---
@@ -37,7 +38,6 @@ Todo/missing features
  * Be able to control music playback with keyboard
  * Cache playlists, tracks, user pages..
  * Offline usage (sync playlists)
- * Track pages
  * Responsive design for smaller screens
  * Mobile support (Android, iOS..)
  * Context menu on tracks, right now only tracks in playlists are queueable
