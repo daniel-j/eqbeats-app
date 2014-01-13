@@ -38,8 +38,7 @@ this.App.module('Track.Show', function(Show, App, Backbone, Marionette, $, _) {
       }
     },
     onRender: function() {
-      App.mainRegion.$el.scroll(this.onScroll);
-      return this.onScroll.apply(App.mainRegion.$el);
+      return App.mainRegion.$el.scroll(this.onScroll);
     },
     onClose: function() {
       return App.mainRegion.$el.unbind('scroll', this.onScroll);

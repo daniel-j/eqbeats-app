@@ -34,7 +34,7 @@
 
 		onRender: ->
 			App.mainRegion.$el.scroll @onScroll
-			@onScroll.apply(App.mainRegion.$el)
+			#@onScroll.apply(App.mainRegion.$el)
 
 		onClose: ->
 			App.mainRegion.$el.unbind 'scroll', @onScroll
@@ -42,6 +42,7 @@
 		onScroll: ->
 			el = $ @
 			percent = -(el.scrollTop()/480)*50+75
+
 			
 			el.find(".cover").css
 				'background-position': 'center '+percent+'%'
