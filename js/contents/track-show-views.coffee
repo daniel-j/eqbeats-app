@@ -33,11 +33,11 @@
 			'click button.add-to-queue': -> App.commands.execute "track:queue:clicked", @model, @
 
 		onRender: ->
-			App.mainRegion.$el.scroll @onScroll
+			#App.mainRegion.$el.scroll @onScroll
 			#@onScroll.apply(App.mainRegion.$el)
 
 		onClose: ->
-			App.mainRegion.$el.unbind 'scroll', @onScroll
+			#App.mainRegion.$el.unbind 'scroll', @onScroll
 
 		onScroll: ->
 			el = $ @

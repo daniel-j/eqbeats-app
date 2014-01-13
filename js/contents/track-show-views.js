@@ -37,12 +37,8 @@ this.App.module('Track.Show', function(Show, App, Backbone, Marionette, $, _) {
         return App.commands.execute("track:queue:clicked", this.model, this);
       }
     },
-    onRender: function() {
-      return App.mainRegion.$el.scroll(this.onScroll);
-    },
-    onClose: function() {
-      return App.mainRegion.$el.unbind('scroll', this.onScroll);
-    },
+    onRender: function() {},
+    onClose: function() {},
     onScroll: function() {
       var el, percent;
       el = $(this);
