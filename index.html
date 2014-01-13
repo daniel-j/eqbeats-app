@@ -141,6 +141,9 @@
 	<div class="avatar" style="background-image: url('<%=avatar%>');"></div>
 	<h2><%=_.escape(name)%></h2>
 	<div class="items">
+		<% if (follower_count > 0) { %>
+			<div class="item"><img src="img/icons/users.png"> <%=follower_count%> follower<%=follower_count==1?'':'s'%></div>
+		<% } %>
 		<div class="item"><img src="img/icons/star.png"> <a href="#/user/<%=id%>/favorites">Favorite tracks <% if (num_favorites > 0) { %>(<%=num_favorites%>)<%}%></a></div>
 	</div>
 	<div style="clear:both;"></div>

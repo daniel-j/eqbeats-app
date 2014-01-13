@@ -21,6 +21,7 @@
 			avatar: ''
 			description: ''
 			html_description: ''
+			follower_count: 0
 		
 	
 	Entities.Track = Backbone.Model.extend
