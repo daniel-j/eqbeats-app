@@ -46,10 +46,7 @@ this.App.module('Track.Show', function(Show, App, Backbone, Marionette, $, _) {
     onScroll: function() {
       var el, percent;
       el = $(this);
-      percent = -(el.scrollTop() / 480) * 50 + 75;
-      return el.find(".cover").css({
-        'background-position': 'center ' + percent + '%'
-      });
+      return percent = -(el.scrollTop() / 480) * 50 + 75;
     }
   });
 });

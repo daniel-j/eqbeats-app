@@ -44,6 +44,6 @@
 			percent = -(el.scrollTop()/480)*50+75
 
 			
-			el.find(".cover").css
-				'background-position': 'center '+percent+'%'
+			#el.find(".cover").css
+			#	'background-position': 'center '+percent+'%'
 
