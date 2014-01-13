@@ -141,7 +141,7 @@
 	<div class="avatar" style="background-image: url('<%=avatar%>');"></div>
 	<h2><%=_.escape(name)%></h2>
 	<div class="items">
-		<div class="item"><img src="img/icons/star.png"> <a href="#/user/<%=id%>/favorites">Favorite tracks</a></div>
+		<div class="item"><img src="img/icons/star.png"> <a href="#/user/<%=id%>/favorites">Favorite tracks <% if (num_favorites > 0) { %>(<%=num_favorites%>)<%}%></a></div>
 	</div>
 	<div style="clear:both;"></div>
 	<% if (html_description) { %>
@@ -149,7 +149,10 @@
 	<% } %>
 </script>
 <script type="text/template" id="user-playlist">
-	<div class="title"><a href="#/playlist/<%=id%>"><%=_.escape(name)%></a></div>
+	<div class="title">
+		<a href="#/playlist/<%=id%>"><%=_.escape(name)%></a>
+		<span class="count"><%=track_count%> track<%=track_count==1?'':'s'%></span>
+	</div>
 	<% if (html_description) { %>
 		<div class="description"><%=html_description%></div>
 		<% } %>
@@ -170,6 +173,25 @@
 	<div id="track-player"></div>
 	<div id="info" class="content-padding"></div>
 </script>
+
+<script type="text/template" id="track-player-template">
+	<div class="cover" style="<% if (download.art) { %>background-image: url('<%=download.art%>'), url('<%=download.art%>/medium'), url('<%=download.art%>/thumb');<% } %>">
+		<div class="gradient">
+			<div class="info">
+				<h2><span><%=_.escape(title)%></span></h2>
+				<h4>
+					<span>
+						by <!--<img src="<%=artist.avatar%>" height=32>-->
+						<a href="#/user/<%=artist.id%>"><%=_.escape(artist.name)%></a>
+					</span>
+				</h4>
+			</div>
+			<button type="button" class="play-track"></button>
+			<button type="button" class="add-to-queue" tabindex="-1">Queue</button>
+		</div>
+	</div>
+</script>
+
 <script type="text/template" id="track-info">
 
 	<div class="toolbar">
@@ -202,14 +224,13 @@
 
 	<div class="leftcol">
 
-
-
 		<% if (download.art) { %>
 			<img src="<%=download.art%>/medium" class="art">
 		<% } %>
 
 
 		<div class="license">
+			<div class="date">Uploaded on <%=formattedDate(timestamp)%></div>
 			<% switch (license) {
 				case 'Copyright': %> <%=license%> © <%=artist.name%> <% break;
 				default: %> <%=license%> <% break;
@@ -226,20 +247,7 @@
 
 	<div style="clear: both;"></div>
 </script>
-<script type="text/template" id="track-player-template">
-	<div class="cover" style="<% if (download.art) { %>background-image: url('<%=download.art%>'), url('<%=download.art%>/thumb');<% } %>">
-		<div class="gradient">
-			<div class="info">
-				<h2><span><%=_.escape(title)%></span></h2>
-				<h4>
-					<span>by <!--<img src="<%=artist.avatar%>" height=32>--> <a href="#/user/<%=artist.id%>"><%=_.escape(artist.name)%></a></span>
-				</h4>
-			</div>
-			<button type="button" class="play-track"></button>
-		</div>
-	</div>
 
-</script>
 
 
 <script type="text/template" id="playlist-layout">
