@@ -29,6 +29,7 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
       return config.host + "/track/" + this.get('id') + "/json";
     },
     defaults: {
+      id: 0,
       title: '',
       html_description: '',
       license: '',

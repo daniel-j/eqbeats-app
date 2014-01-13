@@ -690,6 +690,31 @@ ul.downloads:hover li{
 		background-position: center center;
 		background-size: cover;
 		background-image: url('../img/album-placeholder.png');
+
+		
+		cursor: pointer;
+		overflow: hidden;
+		.overlay {
+			position: relative;
+			height: 100%;
+			background-color: rgba(0,0,0,0.3);
+			display: none;
+
+
+			&:before {
+				position: absolute;
+				content: "";
+				left: 9px;
+				top: 6px;
+				border: 0px solid transparent;
+				border-width: 8px 14px;
+				border-left-color: #fff;
+			}
+		}
+		&:hover .overlay {
+			display: block;
+		}
+		
 	}
 
 	th, td {

@@ -16,12 +16,11 @@ this.App.module('View', function(View, App, Backbone, Marionette, $, _) {
       "click button.add-to-queue": function() {
         return App.commands.execute("track:queue:clicked", this.model, this);
       },
-      "click button.view-track": function() {
-        return App.navigate("track/" + this.model.get('id'));
-      },
-      "dblclick": function() {
-        return App.commands.execute("track:play", this.model, this);
-      }
+      "click .art-thumb": "playTrack",
+      "dblclick": "playTrack"
+    },
+    playTrack: function() {
+      return App.commands.execute("track:play", this.model, this);
     }
   });
   View.Playlist = Marionette.CompositeView.extend({
@@ -39,9 +38,10 @@ this.App.module('View', function(View, App, Backbone, Marionette, $, _) {
       "click button.add-to-queue": function() {
         return App.commands.execute("track:queue:clicked", this.model, this);
       },
-      "dblclick": function() {
-        return App.commands.execute("track:play", this.model, this);
-      }
+      "dblclick": "playTrack"
+    },
+    playTrack: function() {
+      return App.commands.execute("track:play", this.model, this);
     }
   });
   return View.TracklistBig = Marionette.CollectionView.extend({

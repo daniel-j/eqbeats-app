@@ -28,6 +28,7 @@
 			config.host+"/track/"+@get('id')+"/json"
 		
 		defaults:
+			id: 0
 			title: ''
 			html_description: ''
 			license: ''

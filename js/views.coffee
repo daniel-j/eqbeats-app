@@ -15,8 +15,12 @@
 
 		events:
 			"click button.add-to-queue": -> App.commands.execute "track:queue:clicked", @model, @
-			"click button.view-track": -> App.navigate "track/"+@model.get('id')
-			"dblclick": -> App.commands.execute "track:play", @model, @
+		#	"click button.view-track": -> App.navigate "track/"+@model.get('id')
+			"click .art-thumb": "playTrack"
+			"dblclick": "playTrack"
+
+		playTrack: ->
+			App.commands.execute "track:play", @model, @
 
 	View.Playlist = Marionette.CompositeView.extend
 		template: '#playlist-list'
@@ -32,8 +36,10 @@
 
 		events:
 			"click button.add-to-queue": -> App.commands.execute "track:queue:clicked", @model, @
-			"dblclick": ->
-				App.commands.execute "track:play", @model, @
+			"dblclick": "playTrack"
+
+		playTrack: ->
+			App.commands.execute "track:play", @model, @
 
 	
 
