@@ -251,7 +251,7 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
     kc = e.keyCode;
     if (ignoreTypes.indexOf(e.target.nodeName.toLowerCase()) === -1) {
       if (kc === 32) {
-        if (state.get('duration' > 0)) {
+        if (state.get('canPlayPause')) {
           API.togglePlayPause();
         }
       } else if (e.ctrlKey && kc === 39) {

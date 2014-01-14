@@ -237,7 +237,7 @@
 		if ignoreTypes.indexOf(e.target.nodeName.toLowerCase()) == -1
 
 			if kc == 32
-				if state.get 'duration' > 0
+				if state.get 'canPlayPause'
 					API.togglePlayPause()
 			else if e.ctrlKey and kc == 39
 				if state.get 'canNext'
