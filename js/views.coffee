@@ -31,6 +31,25 @@
 		itemView: View.PlaylistTrack
 		itemViewContainer: 'tbody'
 
+		appendHtml: (collectionView, itemView, index) ->
+			if collectionView.isBuffering
+				# buffering happens on reset events and initial renders
+				# in order to reduce the number of inserts into the
+				# document, which are expensive.
+				collectionView.elBuffer.appendChild itemView.el
+			
+			else
+				# If we've already rendered the main collection, just
+				# append the new items directly into the element.
+				# collectionView.$el.append itemView.el
+
+				childrenContainer = collectionView.itemViewContainer and collectionView.$(collectionView.itemViewContainer) or collectionView.$el
+				children = childrenContainer.children()
+				if children.size() <= index
+					childrenContainer.append itemView.el
+				else
+					children.eq(index).before itemView.el
+
 	View.TracklistBigItem = Marionette.ItemView.extend
 		template: '#tracklist-big-item'
 		tagName: 'li'
@@ -45,6 +64,9 @@
 
 		playTrack: ->
 			App.commands.execute "track:play", @model, @
+
+
+    
 
 	
 

@@ -31,7 +31,21 @@ this.App.module('View', function(View, App, Backbone, Marionette, $, _) {
     template: '#playlist-list',
     id: 'playlist-layout',
     itemView: View.PlaylistTrack,
-    itemViewContainer: 'tbody'
+    itemViewContainer: 'tbody',
+    appendHtml: function(collectionView, itemView, index) {
+      var children, childrenContainer;
+      if (collectionView.isBuffering) {
+        return collectionView.elBuffer.appendChild(itemView.el);
+      } else {
+        childrenContainer = collectionView.itemViewContainer && collectionView.$(collectionView.itemViewContainer) || collectionView.$el;
+        children = childrenContainer.children();
+        if (children.size() <= index) {
+          return childrenContainer.append(itemView.el);
+        } else {
+          return children.eq(index).before(itemView.el);
+        }
+      }
+    }
   });
   View.TracklistBigItem = Marionette.ItemView.extend({
     template: '#tracklist-big-item',

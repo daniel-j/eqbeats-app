@@ -65,6 +65,7 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
       aacSource.src = track.get('stream').aac;
       mp3Source.src = track.get('stream').mp3;
       oggSource.src = track.get('stream').vorbis;
+      App.execute('track:history:add', track);
       audioTag.load();
       if (isPlaying || doPlay) {
         audioTag.play();

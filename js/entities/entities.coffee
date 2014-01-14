@@ -112,13 +112,16 @@
 
 	Entities.QueuedTracks = Backbone.Collection.extend
 		model: Entities.Track
+	Entities.PlayedTracks = Backbone.Collection.extend
+		model: Entities.Track
 
-		
+
 		
 	premade = 
 		featured: new Entities.Featured
 		latest: new Entities.Latest
 		queue: new Entities.QueuedTracks
+		history: new Entities.PlayedTracks
 		currentUser: new Entities.User
 
 	#premade.queue.on 'all', (ev, model, col, opts) -> console.log ev, model
@@ -187,6 +190,9 @@
 		getQueue: ->
 			premade.queue
 
+		getHistory: ->
+			premade.history
+
 		searchTracks: (query) ->
 			tracks = new Entities.SearchTracks
 				query: query
@@ -210,6 +216,19 @@
 			premade.queue.trigger 'add', model, premade.queue, {}###
 			premade.queue.push model
 
+		addToHistory: (track) ->
+			if track.collection != premade.history
+
+				first = premade.history.at 0
+				
+				return if first and first.get('id') == track.get('id')
+
+				model = new Entities.Track track.toJSON()
+				premade.history.unshift model
+				while premade.history.length > 100
+					premade.history.pop()
+
+
 
 	App.reqres.setHandler "current:user:entity", ->
 		API.getCurrentUser()
@@ -232,6 +251,8 @@
 
 	App.reqres.setHandler "queue:entities", ->
 		API.getQueue()
+	App.reqres.setHandler "history:entities", ->
+		API.getHistory()
 
 	App.reqres.setHandler "search:tracks:entities", (query) ->
 		API.searchTracks query
@@ -241,4 +262,7 @@
 		API.setCurrentUser id
 	App.commands.setHandler 'track:queue:clicked', (track, child) ->
 		API.addToQueue track
+
+	App.commands.setHandler 'track:history:add', (track) ->
+		API.addToHistory track
 	

@@ -63,6 +63,8 @@
 			mp3Source.src = track.get('stream').mp3
 			oggSource.src = track.get('stream').vorbis
 
+			App.execute 'track:history:add', track
+
 			audioTag.load()
 
 			if isPlaying or doPlay

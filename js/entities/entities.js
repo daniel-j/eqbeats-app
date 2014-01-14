@@ -116,10 +116,14 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
   Entities.QueuedTracks = Backbone.Collection.extend({
     model: Entities.Track
   });
+  Entities.PlayedTracks = Backbone.Collection.extend({
+    model: Entities.Track
+  });
   premade = {
     featured: new Entities.Featured,
     latest: new Entities.Latest,
     queue: new Entities.QueuedTracks,
+    history: new Entities.PlayedTracks,
     currentUser: new Entities.User
   };
   doPrefill = false;
@@ -198,6 +202,9 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
     getQueue: function() {
       return premade.queue;
     },
+    getHistory: function() {
+      return premade.history;
+    },
     searchTracks: function(query) {
       var tracks;
       tracks = new Entities.SearchTracks({
@@ -231,6 +238,22 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
       */
 
       return premade.queue.push(model);
+    },
+    addToHistory: function(track) {
+      var first, model, _results;
+      if (track.collection !== premade.history) {
+        first = premade.history.at(0);
+        if (first && first.get('id') === track.get('id')) {
+          return;
+        }
+        model = new Entities.Track(track.toJSON());
+        premade.history.unshift(model);
+        _results = [];
+        while (premade.history.length > 100) {
+          _results.push(premade.history.pop());
+        }
+        return _results;
+      }
     }
   };
   App.reqres.setHandler("current:user:entity", function() {
@@ -257,13 +280,19 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
   App.reqres.setHandler("queue:entities", function() {
     return API.getQueue();
   });
+  App.reqres.setHandler("history:entities", function() {
+    return API.getHistory();
+  });
   App.reqres.setHandler("search:tracks:entities", function(query) {
     return API.searchTracks(query);
   });
   App.commands.setHandler('current:user:set', function(id) {
     return API.setCurrentUser(id);
   });
-  return App.commands.setHandler('track:queue:clicked', function(track, child) {
+  App.commands.setHandler('track:queue:clicked', function(track, child) {
     return API.addToQueue(track);
+  });
+  return App.commands.setHandler('track:history:add', function(track) {
+    return API.addToHistory(track);
   });
 });

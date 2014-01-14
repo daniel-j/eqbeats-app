@@ -18,8 +18,11 @@
 			title: "Blog"
 			url: "blog"
 		queue: new Sidepanel.MenuItem
-			title: "Queue"
+			title: "Play Queue"
 			url: "queue"
+		history: new Sidepanel.MenuItem
+			title: "History"
+			url: "history"
 		profile: new Sidepanel.MenuItem
 			title: "Profile"
 			url: ""
@@ -46,6 +49,8 @@
 		menuBefore: new Sidepanel.MenuItems [
 			menuitems.index
 			menuitems.queue
+			menuitems.history
+			separator()
 			menuitems.profile
 			menuitems.favourites
 			separator()
