@@ -35,12 +35,11 @@ Todo/missing features
  * Login/authentication
  * Add tracks to playlists, create playlists, favourite tracks, upload music..
  * Shuffle mode
- * Better navigation in lists of tracks
  * Cache playlists, tracks, user pages..
  * Offline usage (sync playlists)
  * Responsive design for smaller screens
  * Mobile support (Android, iOS..)
- * Context menu on tracks, right now only tracks in playlists are queueable
+ * Context menu on tracks, for actions like queue, add to playlist, share..
 
 Thanks
 ---
