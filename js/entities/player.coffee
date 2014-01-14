@@ -215,7 +215,6 @@
 	App.vent.on 'queue:track:added', ->
 		API.updateCanPlayNext()
 	App.vent.on 'queue:track:removed', ->
-		console.log "queue changed"
 		API.updateCanPlayNext()
 
 	App.commands.setHandler 'track:play', (track) ->
@@ -231,3 +230,22 @@
 
 	App.commands.setHandler 'repeat:enable', (enabled) ->
 		API.setRepeatMode enabled
+
+	$(window).keydown (e) ->
+		ignoreTypes = ['input']
+		kc = e.keyCode
+		if ignoreTypes.indexOf(e.target.nodeName.toLowerCase()) == -1
+
+			if kc == 32
+				if state.get 'duration' > 0
+					API.togglePlayPause()
+			else if e.ctrlKey and kc == 39
+				if state.get 'canNext'
+					API.playNextTrack()
+			else if e.ctrlKey and kc == 37
+				if state.get 'canPrev'
+					API.playPrevTrack()
+
+			else
+				return
+			e.preventDefault()

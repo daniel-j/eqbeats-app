@@ -138,9 +138,6 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
   premade.queue.on('remove', function() {
     return App.vent.trigger("queue:track:removed");
   });
-  premade.queue.on('all', function(ev) {
-    return console.log(ev);
-  });
   API = {
     getCurrentUser: function() {
       return premade.currentUser;

@@ -225,7 +225,6 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
     return API.updateCanPlayNext();
   });
   App.vent.on('queue:track:removed', function() {
-    console.log("queue changed");
     return API.updateCanPlayNext();
   });
   App.commands.setHandler('track:play', function(track) {
@@ -243,7 +242,30 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
   App.commands.setHandler('track:seek', function(time) {
     return API.seek(time);
   });
-  return App.commands.setHandler('repeat:enable', function(enabled) {
+  App.commands.setHandler('repeat:enable', function(enabled) {
     return API.setRepeatMode(enabled);
+  });
+  return $(window).keydown(function(e) {
+    var ignoreTypes, kc;
+    ignoreTypes = ['input'];
+    kc = e.keyCode;
+    if (ignoreTypes.indexOf(e.target.nodeName.toLowerCase()) === -1) {
+      if (kc === 32) {
+        if (state.get('duration' > 0)) {
+          API.togglePlayPause();
+        }
+      } else if (e.ctrlKey && kc === 39) {
+        if (state.get('canNext')) {
+          API.playNextTrack();
+        }
+      } else if (e.ctrlKey && kc === 37) {
+        if (state.get('canPrev')) {
+          API.playPrevTrack();
+        }
+      } else {
+        return;
+      }
+      return e.preventDefault();
+    }
   });
 });

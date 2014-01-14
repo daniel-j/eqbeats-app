@@ -28,6 +28,7 @@ Features
  * Queue tracks
  * Search for tracks
  * Download tracks
+ * Use spacebar to pause, ctrl+arrow left/right to play previous/next track
 
 Todo/missing features
 ---
@@ -35,7 +36,6 @@ Todo/missing features
  * Add tracks to playlists, create playlists, favourite tracks, upload music..
  * Shuffle mode
  * Better navigation in lists of tracks
- * Be able to control music playback with keyboard
  * Cache playlists, tracks, user pages..
  * Offline usage (sync playlists)
  * Responsive design for smaller screens

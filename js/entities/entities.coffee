@@ -139,8 +139,8 @@
 		App.vent.trigger "queue:track:added"
 	premade.queue.on 'remove', ->
 		App.vent.trigger "queue:track:removed"
-	premade.queue.on 'all', (ev) ->
-		console.log ev
+	#premade.queue.on 'all', (ev) ->
+	#	console.log ev
 
 	#premade.currentUser.on 'error', (ev) ->
 	#	alert "No such user"
