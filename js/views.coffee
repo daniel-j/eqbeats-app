@@ -6,6 +6,8 @@
 		tagName: 'li'
 		className: 'empty'
 
+
+
 	View.PlaylistTrack = Marionette.ItemView.extend
 		template: '#playlist-track'
 		tagName: 'tr'
@@ -21,6 +23,16 @@
 				@model.collection.remove @model
 			"click .art-thumb": "playTrack"
 			"dblclick": "playTrack"
+			"keydown": "handleKeydown"
+
+		handleKeydown: (e) ->
+			kc = e.keyCode
+			if kc == 38
+				@$el.prev().focus()
+			else if kc == 40
+				@$el.next().focus()
+			else if kc == 13
+				@playTrack()
 
 		playTrack: ->
 			App.commands.execute "track:play", @model, @
@@ -50,6 +62,9 @@
 				else
 					children.eq(index).before itemView.el
 
+
+
+
 	View.TracklistBigItem = Marionette.ItemView.extend
 		template: '#tracklist-big-item'
 		tagName: 'li'
@@ -61,17 +76,19 @@
 			"click button.add-to-queue": -> App.commands.execute "track:queue:clicked", @model, @
 			"dblclick": "playTrack"
 			"click .art-thumb": "playTrack"
+			"keydown": "handleKeydown"
+
+		handleKeydown: (e) ->
+			kc = e.keyCode
+			if kc == 38
+				@$el.prev().focus()
+			else if kc == 40
+				@$el.next().focus()
+			else if kc == 13
+				@playTrack()
 
 		playTrack: ->
 			App.commands.execute "track:play", @model, @
-
-
-    
-
-	
-
-	#	events:
-	#		"click button.add-to-queue": -> App.commands.execute "track:queue:clicked", @model, @
 
 	View.TracklistBig = Marionette.CollectionView.extend
 		itemView: View.TracklistBigItem

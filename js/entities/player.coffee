@@ -234,6 +234,7 @@
 	$(window).keydown (e) ->
 		ignoreTypes = ['input']
 		kc = e.keyCode
+		
 		if ignoreTypes.indexOf(e.target.nodeName.toLowerCase()) == -1
 
 			if kc == 32

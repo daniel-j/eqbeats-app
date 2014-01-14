@@ -21,7 +21,19 @@ this.App.module('View', function(View, App, Backbone, Marionette, $, _) {
         return this.model.collection.remove(this.model);
       },
       "click .art-thumb": "playTrack",
-      "dblclick": "playTrack"
+      "dblclick": "playTrack",
+      "keydown": "handleKeydown"
+    },
+    handleKeydown: function(e) {
+      var kc;
+      kc = e.keyCode;
+      if (kc === 38) {
+        return this.$el.prev().focus();
+      } else if (kc === 40) {
+        return this.$el.next().focus();
+      } else if (kc === 13) {
+        return this.playTrack();
+      }
     },
     playTrack: function() {
       return App.commands.execute("track:play", this.model, this);
@@ -58,7 +70,19 @@ this.App.module('View', function(View, App, Backbone, Marionette, $, _) {
         return App.commands.execute("track:queue:clicked", this.model, this);
       },
       "dblclick": "playTrack",
-      "click .art-thumb": "playTrack"
+      "click .art-thumb": "playTrack",
+      "keydown": "handleKeydown"
+    },
+    handleKeydown: function(e) {
+      var kc;
+      kc = e.keyCode;
+      if (kc === 38) {
+        return this.$el.prev().focus();
+      } else if (kc === 40) {
+        return this.$el.next().focus();
+      } else if (kc === 13) {
+        return this.playTrack();
+      }
     },
     playTrack: function() {
       return App.commands.execute("track:play", this.model, this);
