@@ -28,12 +28,15 @@ this.App.module('View', function(View, App, Backbone, Marionette, $, _) {
       var kc;
       kc = e.keyCode;
       if (kc === 38) {
-        return this.$el.prev().focus();
+        this.$el.prev().focus();
       } else if (kc === 40) {
-        return this.$el.next().focus();
+        this.$el.next().focus();
       } else if (kc === 13) {
-        return this.playTrack();
+        this.playTrack();
+      } else {
+        return;
       }
+      return e.preventDefault();
     },
     playTrack: function() {
       return App.commands.execute("track:play", this.model, this);
@@ -77,12 +80,15 @@ this.App.module('View', function(View, App, Backbone, Marionette, $, _) {
       var kc;
       kc = e.keyCode;
       if (kc === 38) {
-        return this.$el.prev().focus();
+        this.$el.prev().focus();
       } else if (kc === 40) {
-        return this.$el.next().focus();
+        this.$el.next().focus();
       } else if (kc === 13) {
-        return this.playTrack();
+        this.playTrack();
+      } else {
+        return;
       }
+      return e.preventDefault();
     },
     playTrack: function() {
       return App.commands.execute("track:play", this.model, this);

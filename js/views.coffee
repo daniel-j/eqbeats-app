@@ -33,6 +33,9 @@
 				@$el.next().focus()
 			else if kc == 13
 				@playTrack()
+			else
+				return
+			e.preventDefault()
 
 		playTrack: ->
 			App.commands.execute "track:play", @model, @
@@ -86,6 +89,9 @@
 				@$el.next().focus()
 			else if kc == 13
 				@playTrack()
+			else
+				return
+			e.preventDefault()
 
 		playTrack: ->
 			App.commands.execute "track:play", @model, @
