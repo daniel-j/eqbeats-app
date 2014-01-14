@@ -12,6 +12,7 @@ this.App.module('Player', function(Player, App, Backbone, Marionette, $, _) {
     },
     events: {
       'change #repeat-box': function(e) {
+        e.target.blur();
         return App.commands.execute("repeat:enable", e.target.checked);
       }
     },

@@ -13,6 +13,7 @@
 
 		events:
 			'change #repeat-box': (e)->
+				e.target.blur()
 				App.commands.execute "repeat:enable", e.target.checked
 
 		onRender: ->

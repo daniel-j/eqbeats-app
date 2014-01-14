@@ -210,7 +210,7 @@
 					var index = types.indexOf(type);
 					var title = titles[index];
 			
-					%> <li><a href="<%=url%>" target="_blank"><span><%=title%></span></a></li> <%
+					%> <li><a href="<%=url%>" <%=type==='art'?'target="_blank"':''%>><span><%=title%></span></a></li> <%
 				})
 			%>
 		</ul>
@@ -227,7 +227,7 @@
 	<div class="leftcol">
 
 		<% if (download.art) { %>
-			<img src="<%=download.art%>/medium" class="art">
+			<a href="<%=download.art%>" target="_blank"><img src="<%=download.art%>/medium" class="art"></a>
 		<% } %>
 
 
