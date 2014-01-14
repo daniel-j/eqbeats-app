@@ -32,6 +32,8 @@
 	aacSource.type = "audio/aac"
 	audioTag.appendChild aacSource
 
+	lastAddedId = 0
+
 	# state.get('trackData').on 'all', (ev) -> console.log ev
 	#state.on 'all', (ev) ->
 	#	console.log "state "+ev
@@ -62,8 +64,6 @@
 			aacSource.src = track.get('stream').aac
 			mp3Source.src = track.get('stream').mp3
 			oggSource.src = track.get('stream').vorbis
-
-			App.execute 'track:history:add', track
 
 			audioTag.load()
 
@@ -195,6 +195,9 @@
 	audioTag.addEventListener 'timeupdate', ->
 		state.set
 			time: @currentTime
+		if @currentTime > 5 and state.get('track').get('id') != lastAddedId
+			App.execute 'track:history:add', state.get 'track'
+			lastAddedId = state.get('track').get 'id'
 	audioTag.addEventListener 'progress', (e) ->
 		bufTime = 0
 		if @buffered.length > 0
