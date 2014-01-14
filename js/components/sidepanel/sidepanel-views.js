@@ -4,8 +4,9 @@ this.App.module('Sidepanel', function(Sidepanel, App, Backbone, Marionette, $, _
   Sidepanel.Layout = Marionette.Layout.extend({
     template: '#sidepanel',
     regions: {
-      menu: '#menu',
+      menuBefore: '#menu-before',
       playlists: '#playlists',
+      menuAfter: '#menu-after',
       trackinfo: '#trackinfo-region'
     },
     events: {

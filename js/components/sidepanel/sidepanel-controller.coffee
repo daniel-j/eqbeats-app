@@ -9,22 +9,24 @@
 	Sidepanel.Controller = App.Controllers.Base.extend
 		initialize: ->
 
-			menu = App.request "menu:sidepanel:entities"
+			menuBefore = App.request "menu:before:sidepanel:entities"
+			menuAfter = App.request "menu:after:sidepanel:entities"
 			user = App.request "current:user:entity"
 			track = App.request "current:track:entity"
 
 			@layout = @getLayoutView()
 
 			@listenTo @layout, 'show', =>
-				@menuRegion menu
+				@menuRegion menuBefore, @layout.menuBefore
+				@menuRegion menuAfter, @layout.menuAfter
 				@playlistsRegion user
 				@trackInfoRegion track
 				
 			@show @layout,
-				loading:
-					entities: [menu, user]
+			#	loading:
+			#		entities: [menuBefore, menuAfter, user, track]
 		
-		menuRegion: (menu) ->
+		menuRegion: (menu, region) ->
 			listView = @getMenuView menu
 
 			@listenTo listView, 'itemview:menuitem:clicked', (iv, menuitem) ->
@@ -34,7 +36,7 @@
 				if menuitem.has 'action'
 					menuitem.get('action').apply(menuitem)
 
-			@show listView, region: @layout.menu
+			@show listView, region: region
 
 		playlistsRegion: (user) ->
 			listView = @getPlaylistsView user

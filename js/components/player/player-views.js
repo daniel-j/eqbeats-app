@@ -9,6 +9,14 @@ this.App.module('Player', function(Player, App, Backbone, Marionette, $, _) {
       time: '#timeElapsed',
       duration: '#timeTotal',
       progress: '#progress-region'
+    },
+    events: {
+      'change #repeat-box': function(e) {
+        return App.commands.execute("repeat:enable", e.target.checked);
+      }
+    },
+    onRender: function() {
+      return App.commands.execute("repeat:enable", this.$el.find('#repeat-box').prop('checked'));
     }
   });
   Player.Controls = Marionette.ItemView.extend({

@@ -33,8 +33,9 @@
 <script type="text/template" id="sidepanel">
 	<div id="searchbar-wrap"><form action="#/tracks/search" id="search-form"><input type="search" id="searchbar" placeholder="Search"></form></div>
 	<div id="left-menu" class="flex">
-		<div id="menu"></div>
+		<div id="menu-before"></div>
 		<div id="playlists"></div>
+		<div id="menu-after"></div>
 	</div>
 
 	<div class="trackinfo">
@@ -47,14 +48,16 @@
 	</div>
 </script>
 
+<script type="text/template" id="sidepanel-menuitem">
+	<span tabindex="0"><%=typeof title ==='undefined'?name:title%></span>
+</script>
+
 <script type="text/template" id="trackinfo-template">
 	<div id="track-title-wrapper" class="marquee"><span><a href="#/track/<%=id%>" id="track-title" title="<%=_.escape(title)%>" tabindex="-1"><%=_.escape(title)%></a></span></div>
 	<div id="track-artist-wrapper" class="marquee"><span><a href="#/user/<%=artist.id%>" id="track-artist" tabindex="-1" title="<%=_.escape(artist.name)%>"><%=_.escape(artist.name)%></a></span></div>
 </script>
 
-<script type="text/template" id="sidepanel-menuitem">
-	<span tabindex="0"><%=typeof title ==='undefined'?name:title%></span>
-</script>
+
 
 <script type="text/template" id="index">
 	<div style="margin-top: 15px; margin-right: 16px; margin-left: 40px; float: left;">
@@ -93,7 +96,7 @@
 	<div id="progress-region"></div>
 	<span class="playerTime" id="timeTotal"></span>
 	<label class="repeat-wrap" id="track-repeat">
-		<input type="checkbox" class="repeat-checkbox" disabled id="repeat-box"/>
+		<input type="checkbox" class="repeat-checkbox" id="repeat-box" checked />
 		<div class="repeat-background"></div>
 		<div for="repeat-box" class="repeat-overlay"><div></div></div>
 	</label>
@@ -290,6 +293,7 @@
 		<div class="relative">
 			<div class="buttons">
 				<!--<button type="button" class="view-track" tabindex="-1">Track info</button>-->
+				<button type="button" class="remove-from-list" tabindex="-1">Remove</button>
 				<button type="button" class="add-to-queue" tabindex="-1">Queue</button>
 			</div>
 		</div>

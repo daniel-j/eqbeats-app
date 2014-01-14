@@ -18,7 +18,7 @@ this.App.module('Queue.Show', function(Show, App, Backbone, Marionette, $, _) {
       return this.layout.queue.show(listView);
     },
     getQueueView: function(queue) {
-      return new App.View.Playlist({
+      return new Show.List({
         collection: queue
       });
     },

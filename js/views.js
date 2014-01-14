@@ -16,6 +16,10 @@ this.App.module('View', function(View, App, Backbone, Marionette, $, _) {
       "click button.add-to-queue": function() {
         return App.commands.execute("track:queue:clicked", this.model, this);
       },
+      "click button.remove-from-list": function() {
+        console.log(this);
+        return this.model.collection.remove(this.model);
+      },
       "click .art-thumb": "playTrack",
       "dblclick": "playTrack"
     },
@@ -25,6 +29,7 @@ this.App.module('View', function(View, App, Backbone, Marionette, $, _) {
   });
   View.Playlist = Marionette.CompositeView.extend({
     template: '#playlist-list',
+    id: 'playlist-layout',
     itemView: View.PlaylistTrack,
     itemViewContainer: 'tbody'
   });

@@ -39,16 +39,22 @@
 				if newUser != undefined and newUser != '' and newUser != null and !isNaN +newUser
 					App.execute 'current:user:set', newUser
 
+	separator = ->
+		new Sidepanel.MenuItem menuitems.separator
 
-	premade =
-		menu: new Sidepanel.MenuItems [
+	menus =
+		menuBefore: new Sidepanel.MenuItems [
 			menuitems.index
-			menuitems.blog
 			menuitems.queue
 			menuitems.profile
 			menuitems.favourites
+			separator()
+		]
+
+		menuAfter: new Sidepanel.MenuItems [
+			separator()
 			menuitems.changeUser
-			new Sidepanel.MenuItem menuitems.separator
+			menuitems.blog
 		]
 
 	App.vent.on 'current:user:changed', (user) ->
@@ -61,8 +67,11 @@
 			url: "user/"+user.get('id')+"/favorites"
 
 	API =
-		getMenu: ->
-			premade.menu
+		getMenu: (menu) ->
+			menus[menu]
 
-	App.reqres.setHandler "menu:sidepanel:entities", ->
-		API.getMenu()
+	App.reqres.setHandler "menu:before:sidepanel:entities", ->
+		API.getMenu('menuBefore')
+
+	App.reqres.setHandler "menu:after:sidepanel:entities", ->
+		API.getMenu('menuAfter')

@@ -9,24 +9,22 @@ this.App.module('Sidepanel', function(Sidepanel, App, Backbone, Marionette, $, _
   });
   return Sidepanel.Controller = App.Controllers.Base.extend({
     initialize: function() {
-      var menu, track, user,
+      var menuAfter, menuBefore, track, user,
         _this = this;
-      menu = App.request("menu:sidepanel:entities");
+      menuBefore = App.request("menu:before:sidepanel:entities");
+      menuAfter = App.request("menu:after:sidepanel:entities");
       user = App.request("current:user:entity");
       track = App.request("current:track:entity");
       this.layout = this.getLayoutView();
       this.listenTo(this.layout, 'show', function() {
-        _this.menuRegion(menu);
+        _this.menuRegion(menuBefore, _this.layout.menuBefore);
+        _this.menuRegion(menuAfter, _this.layout.menuAfter);
         _this.playlistsRegion(user);
         return _this.trackInfoRegion(track);
       });
-      return this.show(this.layout, {
-        loading: {
-          entities: [menu, user]
-        }
-      });
+      return this.show(this.layout);
     },
-    menuRegion: function(menu) {
+    menuRegion: function(menu, region) {
       var listView;
       listView = this.getMenuView(menu);
       this.listenTo(listView, 'itemview:menuitem:clicked', function(iv, menuitem) {
@@ -40,7 +38,7 @@ this.App.module('Sidepanel', function(Sidepanel, App, Backbone, Marionette, $, _
         }
       });
       return this.show(listView, {
-        region: this.layout.menu
+        region: region
       });
     },
     playlistsRegion: function(user) {

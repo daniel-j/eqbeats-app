@@ -33,7 +33,7 @@ Todo/missing features
 ---
  * Login/authentication
  * Add tracks to playlists, create playlists, favourite tracks, upload music..
- * Repeat/shuffle playback
+ * Shuffle mode
  * Better navigation in lists of tracks
  * Be able to control music playback with keyboard
  * Cache playlists, tracks, user pages..

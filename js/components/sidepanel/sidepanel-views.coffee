@@ -5,8 +5,9 @@
 		template: '#sidepanel'
 
 		regions:
-			menu: '#menu'
+			menuBefore: '#menu-before'
 			playlists: '#playlists'
+			menuAfter: '#menu-after'
 			trackinfo: '#trackinfo-region'
 
 		events:

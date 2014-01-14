@@ -95,6 +95,11 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
           nextTrack = collection.at(index + 1);
           if (nextTrack !== void 0) {
             return this.playTrack(nextTrack, collection, false, automatic);
+          } else if (state.get('repeat')) {
+            nextTrack = collection.at(0);
+            if (nextTrack !== void 0) {
+              return this.playTrack(nextTrack, collection, false, automatic);
+            }
           }
         }
       }
@@ -106,7 +111,7 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
       collection = state.get('collection');
       if (track && collection) {
         index = collection.indexOf(track);
-        if (state.get('time') > 5 || index === 0) {
+        if (state.get('time') > 5 || (index === 0 && !state.get('repeat'))) {
           try {
             audioTag.currentTime = 0;
           } catch (_error) {}
@@ -115,6 +120,9 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
         }
         if (index > 0) {
           prevTrack = collection.at(index - 1);
+          return this.playTrack(prevTrack, collection);
+        } else if (state.get('repeat')) {
+          prevTrack = collection.at(collection.length - 1);
           return this.playTrack(prevTrack, collection);
         }
       } else if (state.get('canPlayPause')) {
@@ -131,6 +139,12 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
         audioTag.pause();
       }
       return this.updatePlayState();
+    },
+    setRepeatMode: function(enabled) {
+      state.set({
+        repeat: enabled
+      });
+      return this.updateCanPlayNext();
     },
     seek: function(time) {
       try {
@@ -154,6 +168,8 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
         if (track && collection) {
           index = collection.indexOf(track);
           if (index !== -1 && index + 1 < collection.length) {
+            canPlayNext = true;
+          } else if (state.get('repeat')) {
             canPlayNext = true;
           }
         }
@@ -204,6 +220,7 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
     return API.updateCanPlayNext();
   });
   App.vent.on('queue:track:removed', function() {
+    console.log("queue changed");
     return API.updateCanPlayNext();
   });
   App.commands.setHandler('track:play', function(track) {
@@ -218,7 +235,10 @@ this.App.module("Entities.Player", function(Player, App, Backbone, Marionette, $
   App.commands.setHandler('track:toggle:play', function() {
     return API.togglePlayPause();
   });
-  return App.commands.setHandler('track:seek', function(time) {
+  App.commands.setHandler('track:seek', function(time) {
     return API.seek(time);
+  });
+  return App.commands.setHandler('repeat:enable', function(enabled) {
+    return API.setRepeatMode(enabled);
   });
 });

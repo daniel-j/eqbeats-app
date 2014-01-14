@@ -112,6 +112,8 @@
 
 	Entities.QueuedTracks = Backbone.Collection.extend
 		model: Entities.Track
+
+		
 		
 	premade = 
 		featured: new Entities.Featured
@@ -134,6 +136,8 @@
 		App.vent.trigger "queue:track:added"
 	premade.queue.on 'remove', ->
 		App.vent.trigger "queue:track:removed"
+	premade.queue.on 'all', (ev) ->
+		console.log ev
 
 	#premade.currentUser.on 'error', (ev) ->
 	#	alert "No such user"
@@ -198,12 +202,13 @@
 
 		addToQueue: (track) ->
 			model = new Entities.Track track.toJSON()
-			model.set '_id', model.get('id'), silent: true
+			###model.set '_id', model.get('id'), silent: true
 			model.unset 'id', silent: true
 			premade.queue.push model, silent: true
 			model.set 'id', model.get('_id'), silent: true
 			model.unset '_id', silent: true
-			premade.queue.trigger 'add', model, premade.queue, {}
+			premade.queue.trigger 'add', model, premade.queue, {}###
+			premade.queue.push model
 
 
 	App.reqres.setHandler "current:user:entity", ->

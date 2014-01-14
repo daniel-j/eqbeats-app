@@ -10,6 +10,13 @@
 			time: '#timeElapsed'
 			duration: '#timeTotal'
 			progress: '#progress-region'
+
+		events:
+			'change #repeat-box': (e)->
+				App.commands.execute "repeat:enable", e.target.checked
+
+		onRender: ->
+			App.commands.execute "repeat:enable", @$el.find('#repeat-box').prop('checked')
 			
 	
 	Player.Controls = Marionette.ItemView.extend

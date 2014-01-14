@@ -33,6 +33,8 @@
 	audioTag.appendChild aacSource
 
 	# state.get('trackData').on 'all', (ev) -> console.log ev
+	#state.on 'all', (ev) ->
+	#	console.log "state "+ev
 
 	API =
 		getState: ->
@@ -95,8 +97,12 @@
 
 					nextTrack = collection.at index+1
 					if nextTrack != undefined
-
 						return @playTrack nextTrack, collection, false, automatic
+					else if state.get 'repeat'
+						nextTrack = collection.at 0
+						if nextTrack != undefined
+							return @playTrack nextTrack, collection, false, automatic
+
 
 			audioTag.pause()
 
@@ -107,7 +113,7 @@
 
 				index = collection.indexOf track
 
-				if state.get('time') > 5 or index == 0
+				if state.get('time') > 5 or (index == 0 and !state.get 'repeat')
 					try
 						audioTag.currentTime = 0
 					@updateCanPlayPrev()
@@ -116,6 +122,9 @@
 
 				if index > 0
 					prevTrack = collection.at index-1
+					@playTrack prevTrack, collection
+				else if state.get 'repeat'
+					prevTrack = collection.at collection.length-1
 					@playTrack prevTrack, collection
 			else if state.get 'canPlayPause'
 				try
@@ -130,6 +139,11 @@
 				audioTag.pause()
 
 			@updatePlayState()
+
+		setRepeatMode: (enabled) ->
+			state.set
+				repeat: enabled
+			@updateCanPlayNext()
 
 		seek: (time) ->
 			try
@@ -152,6 +166,8 @@
 					index = collection.indexOf track
 					
 					if index != -1 and index+1 < collection.length
+						canPlayNext = true
+					else if state.get 'repeat'
 						canPlayNext = true
 
 			state.set
@@ -194,6 +210,7 @@
 	App.vent.on 'queue:track:added', ->
 		API.updateCanPlayNext()
 	App.vent.on 'queue:track:removed', ->
+		console.log "queue changed"
 		API.updateCanPlayNext()
 
 	App.commands.setHandler 'track:play', (track) ->
@@ -206,3 +223,6 @@
 		API.togglePlayPause()
 	App.commands.setHandler 'track:seek', (time) ->
 		API.seek time
+
+	App.commands.setHandler 'repeat:enable', (enabled) ->
+		API.setRepeatMode enabled

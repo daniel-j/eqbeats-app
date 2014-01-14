@@ -7,3 +7,5 @@
 		regions:
 			queue: '#queue'
 	
+	Show.List = App.View.Playlist.extend
+		className: 'editable'

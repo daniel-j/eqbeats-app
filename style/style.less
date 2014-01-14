@@ -774,11 +774,13 @@ ul.downloads:hover li{
 	}
 }
 
-.playlist-table {
-	width: 100%;
-	
-	border-spacing: 0px;
-	cursor: default;
+#playlist-layout {
+	.playlist-table {
+		width: 100%;
+		
+		border-spacing: 0px;
+		cursor: default;
+	}
 
 	.art-thumb {
 		width: 30px;
@@ -861,22 +863,27 @@ ul.downloads:hover li{
 					}
 				}
 			}
-			.buttons {
-				visibility: hidden;
-				position: absolute;
-				right: 2px;
-				top: -4px;
-
-				button {
-					padding: 3px;
-					font-size: 12px;
-					margin: 0px;
-				}
-			}
 			&:hover .buttons {
 				visibility: visible;
 			}
 		}
+	}
+
+	.buttons {
+		visibility: hidden;
+		position: absolute;
+		right: 2px;
+		top: -4px;
+
+		button {
+			padding: 3px;
+			font-size: 12px;
+			margin: 0px;
+		}
+	}
+	
+	&:not(.editable) .remove-from-list {
+		display: none;
 	}
 	
 }

@@ -21,7 +21,7 @@
 
 
 		getQueueView: (queue) ->
-			new App.View.Playlist
+			new Show.List
 				collection: queue
 		
 		getLayoutView: ->

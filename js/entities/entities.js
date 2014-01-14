@@ -134,6 +134,9 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
   premade.queue.on('remove', function() {
     return App.vent.trigger("queue:track:removed");
   });
+  premade.queue.on('all', function(ev) {
+    return console.log(ev);
+  });
   API = {
     getCurrentUser: function() {
       return premade.currentUser;
@@ -219,22 +222,15 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
     addToQueue: function(track) {
       var model;
       model = new Entities.Track(track.toJSON());
-      model.set('_id', model.get('id'), {
-        silent: true
-      });
-      model.unset('id', {
-        silent: true
-      });
-      premade.queue.push(model, {
-        silent: true
-      });
-      model.set('id', model.get('_id'), {
-        silent: true
-      });
-      model.unset('_id', {
-        silent: true
-      });
-      return premade.queue.trigger('add', model, premade.queue, {});
+      /*model.set '_id', model.get('id'), silent: true
+      			model.unset 'id', silent: true
+      			premade.queue.push model, silent: true
+      			model.set 'id', model.get('_id'), silent: true
+      			model.unset '_id', silent: true
+      			premade.queue.trigger 'add', model, premade.queue, {}
+      */
+
+      return premade.queue.push(model);
     }
   };
   App.reqres.setHandler("current:user:entity", function() {

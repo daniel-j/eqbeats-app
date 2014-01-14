@@ -16,6 +16,9 @@
 		events:
 			"click button.add-to-queue": -> App.commands.execute "track:queue:clicked", @model, @
 		#	"click button.view-track": -> App.navigate "track/"+@model.get('id')
+			"click button.remove-from-list": ->
+				console.log @
+				@model.collection.remove @model
 			"click .art-thumb": "playTrack"
 			"dblclick": "playTrack"
 
@@ -24,6 +27,7 @@
 
 	View.Playlist = Marionette.CompositeView.extend
 		template: '#playlist-list'
+		id: 'playlist-layout'
 		itemView: View.PlaylistTrack
 		itemViewContainer: 'tbody'
 
