@@ -122,10 +122,14 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
   premade = {
     featured: new Entities.Featured,
     latest: new Entities.Latest,
+    random: new Entities.Random,
     queue: new Entities.QueuedTracks,
     history: new Entities.PlayedTracks,
     currentUser: new Entities.User
   };
+  premade.featured.fetch();
+  premade.latest.fetch();
+  premade.random.fetch();
   doPrefill = false;
   premade.currentUser.on('all', function(ev) {});
   premade.currentUser.on('sync', function() {
@@ -143,18 +147,19 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
       return premade.currentUser;
     },
     getFeatured: function() {
-      premade.featured = new Entities.Featured;
       premade.featured.fetch({
         prefill: doPrefill
       });
       return premade.featured;
     },
     getLatest: function() {
-      premade.latest = new Entities.Latest;
       premade.latest.fetch({
         prefill: doPrefill
       });
       return premade.latest;
+    },
+    getRandom: function() {
+      return premade.random;
     },
     getUser: function(id) {
       var user;
@@ -261,6 +266,9 @@ this.App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) 
   });
   App.reqres.setHandler("latest:entities", function() {
     return API.getLatest();
+  });
+  App.reqres.setHandler("random:entities", function() {
+    return API.getRandom();
   });
   App.reqres.setHandler("user:entity", function(id) {
     return API.getUser(id);

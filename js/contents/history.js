@@ -4,11 +4,11 @@ this.App.module('History', function(History, App, Backbone, Marionette, $, _) {
   var API;
   History.Router = Marionette.AppRouter.extend({
     appRoutes: {
-      "history": "showQueue"
+      "history": "showHistory"
     }
   });
   API = {
-    showQueue: function() {
+    showHistory: function() {
       return new History.Show.Controller;
     }
   };

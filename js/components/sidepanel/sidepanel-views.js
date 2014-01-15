@@ -35,11 +35,16 @@ this.App.module('Sidepanel', function(Sidepanel, App, Backbone, Marionette, $, _
       return this.handleX = this.leftPane.width() - e.pageX;
     },
     onMouseMove: function(e) {
+      var w;
       if (!this.holdingHandle) {
         return;
       }
-      return this.leftPane.css({
-        width: Math.max(Math.min(e.pageX + this.handleX, 480), 128) + "px"
+      w = Math.max(Math.min(e.pageX + this.handleX, 480), 128) + "px";
+      this.leftPane.css({
+        width: w
+      });
+      return $(".trackinfo #coverart").css({
+        'max-height': w
       });
     },
     onMouseUp: function(e) {

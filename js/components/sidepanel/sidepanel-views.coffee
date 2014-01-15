@@ -39,8 +39,12 @@
 		onMouseMove: (e) ->
 			return if !@holdingHandle
 
+			w = Math.max(Math.min(e.pageX+@handleX, 480), 128)+"px"
+
 			@leftPane.css
-				width: Math.max(Math.min(e.pageX+@handleX, 480), 128)+"px"
+				width: w
+			$(".trackinfo #coverart").css
+				'max-height': w
 
 		onMouseUp: (e) ->
 			return if !@holdingHandle

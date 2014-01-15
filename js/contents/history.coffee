@@ -3,10 +3,10 @@
 
 	History.Router = Marionette.AppRouter.extend
 		appRoutes:
-			"history": "showQueue"
+			"history": "showHistory"
 
 	API =
-		showQueue: ->
+		showHistory: ->
 			new History.Show.Controller
 		
 	App.addInitializer ->

@@ -4,9 +4,7 @@ this.App.module('Iframe', function(Iframe, App, Backbone, Marionette, $, _) {
   var API, urls;
   Iframe.Router = Marionette.AppRouter.extend({
     appRoutes: {
-      ":webpage": "showIframe",
-      "web/track/:id": "showTrackPage",
-      "web/user/:id": "showUserPage"
+      ":webpage": "showIframe"
     }
   });
   API = {

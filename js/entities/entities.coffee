@@ -120,9 +120,14 @@
 	premade = 
 		featured: new Entities.Featured
 		latest: new Entities.Latest
+		random: new Entities.Random
 		queue: new Entities.QueuedTracks
 		history: new Entities.PlayedTracks
 		currentUser: new Entities.User
+
+	premade.featured.fetch()
+	premade.latest.fetch()
+	premade.random.fetch()
 
 	#premade.queue.on 'all', (ev, model, col, opts) -> console.log ev, model
 
@@ -150,15 +155,20 @@
 			premade.currentUser
 
 		getFeatured: ->
-			premade.featured = new Entities.Featured
+			#premade.featured = new Entities.Featured
 			premade.featured.fetch
 				prefill: doPrefill
 			premade.featured
 		getLatest: ->
-			premade.latest = new Entities.Latest
+			#premade.latest = new Entities.Latest
 			premade.latest.fetch
 				prefill: doPrefill
 			premade.latest
+		getRandom: ->
+			#premade.random = new Entities.Random
+			#premade.random.fetch
+			#	prefill: doPrefill
+			premade.random
 
 		getUser: (id) ->
 			user = new Entities.User
@@ -237,6 +247,8 @@
 		API.getFeatured()
 	App.reqres.setHandler "latest:entities", ->
 		API.getLatest()
+	App.reqres.setHandler "random:entities", ->
+		API.getRandom()
 
 	App.reqres.setHandler "user:entity", (id) ->
 		API.getUser id

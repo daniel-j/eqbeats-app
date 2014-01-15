@@ -4,8 +4,8 @@
 	Iframe.Router = Marionette.AppRouter.extend
 		appRoutes:
 			":webpage": "showIframe"
-			"web/track/:id": "showTrackPage"
-			"web/user/:id": "showUserPage"
+			#"web/track/:id": "showTrackPage"
+			#"web/user/:id": "showUserPage"
 
 	API =
 		showIframe: (webpage) ->
