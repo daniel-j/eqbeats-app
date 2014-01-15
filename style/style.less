@@ -923,13 +923,13 @@ li.empty {
 }
 
 .left-pane {
-	width: 20%;
-	max-width: 300px;
+	width: 240px;
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: flex;
 	background-color: #F2F2F2;
 	background-image: url('../img/noisy-texture-100x100-o3-d10-c-F2F2F2-t0.png');
+	position: relative;
 
 	> div {
 		display: -webkit-flex;
@@ -972,6 +972,22 @@ li.empty {
 			&::-webkit-input-placeholder {
 				color: transparent;
 			}
+		}
+	}
+	#sidepanel-handle {
+		position: absolute;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		width: 7px;
+		cursor: e-resize;
+		-webkit-transition: opacity .1s ease-in-out;
+		background-image: linear-gradient(to right, rgba(0,0,0, 0.0) 0%, rgba(0,0,0, 0.08) 100%);
+		opacity: 0;
+
+		&:active, &:hover {
+			
+			opacity: 1;
 		}
 	}
 }
@@ -1052,7 +1068,7 @@ li.empty {
 		border-top: 1px solid #1d1d1d;
 	}
 	#coverart {
-		max-height: 300px;
+		max-height: 480px;
 		max-width: 100%;
 		display: block;
 		margin: auto;

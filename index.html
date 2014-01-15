@@ -32,6 +32,7 @@
 
 <script type="text/template" id="sidepanel">
 	<div id="searchbar-wrap"><form action="#/tracks/search" id="search-form"><input type="search" id="searchbar" placeholder="Search"></form></div>
+
 	<div id="left-menu" class="flex">
 		<div id="menu-before"></div>
 		<div id="playlists"></div>
@@ -46,6 +47,7 @@
 		</label>
 		<div id="trackinfo-region"></div>
 	</div>
+	<div id="sidepanel-handle"></div>
 </script>
 
 <script type="text/template" id="sidepanel-menuitem">
@@ -56,7 +58,6 @@
 	<div id="track-title-wrapper" class="marquee"><span><a href="#/track/<%=id%>" id="track-title" title="<%=_.escape(title)%>" tabindex="-1"><%=_.escape(title)%></a></span></div>
 	<div id="track-artist-wrapper" class="marquee"><span><a href="#/user/<%=artist.id%>" id="track-artist" tabindex="-1" title="<%=_.escape(artist.name)%>"><%=_.escape(artist.name)%></a></span></div>
 </script>
-
 
 
 <script type="text/template" id="index">

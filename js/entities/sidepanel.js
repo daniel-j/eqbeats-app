@@ -59,7 +59,6 @@ this.App.module("Entities.Sidepanel", function(Sidepanel, App, Backbone, Marione
   };
   App.vent.on('current:user:changed', function(user) {
     menuitems.profile.set({
-      title: user.get('name') + "'s profile",
       url: "user/" + user.get('id')
     });
     return menuitems.favourites.set({

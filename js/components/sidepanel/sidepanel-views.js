@@ -10,7 +10,8 @@ this.App.module('Sidepanel', function(Sidepanel, App, Backbone, Marionette, $, _
       trackinfo: '#trackinfo-region'
     },
     events: {
-      'submit #search-form': 'searchSubmit'
+      'submit #search-form': 'searchSubmit',
+      'mousedown #sidepanel-handle': 'handleMouseDown'
     },
     searchSubmit: function(e) {
       var query;
@@ -20,6 +21,35 @@ this.App.module('Sidepanel', function(Sidepanel, App, Backbone, Marionette, $, _
         document.location.href = "#/tracks/search?q=" + encodeURIComponent(query);
         return App.execute("search:tracks", query);
       }
+    },
+    initialize: function() {
+      this.holdingHandle = false;
+      this.mouseDownX = 0;
+      $(window).mousemove(this.onMouseMove.bind(this));
+      $(window).mouseup(this.onMouseUp.bind(this));
+      return $(window).blur(this.onMouseUp.bind(this));
+    },
+    onClose: function() {},
+    handleMouseDown: function(e) {
+      this.holdingHandle = true;
+      return this.handleX = this.leftPane.width() - e.pageX;
+    },
+    onMouseMove: function(e) {
+      if (!this.holdingHandle) {
+        return;
+      }
+      return this.leftPane.css({
+        width: Math.max(Math.min(e.pageX + this.handleX, 480), 128) + "px"
+      });
+    },
+    onMouseUp: function(e) {
+      if (!this.holdingHandle) {
+        return;
+      }
+      return this.holdingHandle = false;
+    },
+    onRender: function() {
+      return this.leftPane = $(".left-pane");
     }
   });
   Sidepanel.MenuItem = Marionette.ItemView.extend({

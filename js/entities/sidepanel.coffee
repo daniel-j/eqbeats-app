@@ -65,7 +65,7 @@
 	App.vent.on 'current:user:changed', (user) ->
 		
 		menuitems.profile.set
-			title: user.get('name')+"'s profile"
+		#	title: user.get('name')+"'s profile"
 			url: "user/"+user.get('id')
 		
 		menuitems.favourites.set

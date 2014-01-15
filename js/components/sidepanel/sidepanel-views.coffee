@@ -12,6 +12,7 @@
 
 		events:
 			'submit #search-form': 'searchSubmit'
+			'mousedown #sidepanel-handle': 'handleMouseDown'
 
 		searchSubmit: (e) ->
 			e.preventDefault()
@@ -19,6 +20,34 @@
 			if query.length > 0
 				document.location.href = "#/tracks/search?q="+encodeURIComponent(query)
 				App.execute "search:tracks", query
+
+		initialize: ->
+			@holdingHandle = false
+			@mouseDownX = 0
+			$(window).mousemove @onMouseMove.bind(@)
+			$(window).mouseup @onMouseUp.bind(@)
+			$(window).blur @onMouseUp.bind(@)
+
+		onClose: ->
+			# TODO: unbind global event listeners
+
+		handleMouseDown: (e) ->
+			@holdingHandle = true
+			@handleX = @leftPane.width()-e.pageX
+			#@onMouseMove e
+
+		onMouseMove: (e) ->
+			return if !@holdingHandle
+
+			@leftPane.css
+				width: Math.max(Math.min(e.pageX+@handleX, 480), 128)+"px"
+
+		onMouseUp: (e) ->
+			return if !@holdingHandle
+			@holdingHandle = false
+
+		onRender: ->
+			@leftPane = $ ".left-pane"
 
 	
 	Sidepanel.MenuItem = Marionette.ItemView.extend
